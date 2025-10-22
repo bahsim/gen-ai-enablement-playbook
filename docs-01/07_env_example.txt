@@ -1,0 +1,203 @@
+# BigCommerce POA React Checkout - Environment Variables Template
+# Copy this file to .env and fill in your actual values
+# Never commit the actual .env file to version control
+
+# =============================================================================
+# CORE APPLICATION CONFIGURATION
+# =============================================================================
+
+# Application Environment (development|production|test)
+NODE_ENV=development
+
+# Development Settings
+MEASURE_SPEED=false
+WEBPACK_DONE=
+PORT=8080
+MODE=replay
+
+# =============================================================================
+# BIGCOMMERCE CONFIGURATION
+# =============================================================================
+
+# BigCommerce Store Settings
+BIGCOMMERCE_STORE_HASH=your_store_hash_here
+BIGCOMMERCE_ACCESS_TOKEN=your_access_token_here
+BIGCOMMERCE_CLIENT_ID=your_client_id_here
+BIGCOMMERCE_CLIENT_SECRET=your_client_secret_here
+STORE_URL=https://your-store.mybigcommerce.com
+STOREURL=https://your-store.mybigcommerce.com
+
+# =============================================================================
+# PAYMENT GATEWAY CONFIGURATION
+# =============================================================================
+
+# PayPal Commerce
+PAYPAL_CLIENT_ID=your_paypal_client_id_here
+PAYPAL_CLIENT_SECRET=your_paypal_client_secret_here
+PAYPAL_MERCHANT_ID=your_paypal_merchant_id_here
+PAYPAL_ENVIRONMENT=sandbox
+
+# Stripe
+STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_key_here
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_here
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
+
+# Adyen
+ADYEN_CLIENT_KEY=your_adyen_client_key_here
+ADYEN_MERCHANT_ACCOUNT=your_merchant_account_here
+ADYEN_ENVIRONMENT=test
+
+# Braintree
+BRAINTREE_CLIENT_TOKEN=your_braintree_client_token_here
+BRAINTREE_MERCHANT_ID=your_braintree_merchant_id_here
+
+# Square
+SQUARE_APPLICATION_ID=your_square_app_id_here
+SQUARE_LOCATION_ID=your_square_location_id_here
+
+# Klarna
+KLARNA_CLIENT_ID=your_klarna_client_id_here
+KLARNA_CLIENT_SECRET=your_klarna_client_secret_here
+
+# Apple Pay
+APPLE_PAY_MERCHANT_ID=your_apple_pay_merchant_id_here
+
+# Google Pay
+GOOGLE_PAY_MERCHANT_ID=your_google_pay_merchant_id_here
+
+# Amazon Pay
+AMAZON_PAY_PUBLIC_KEY_ID=your_amazon_pay_public_key_id_here
+AMAZON_PAY_PRIVATE_KEY=your_amazon_pay_private_key_here
+AMAZON_PAY_MERCHANT_ID=your_amazon_pay_merchant_id_here
+
+# =============================================================================
+# ANALYTICS AND MONITORING
+# =============================================================================
+
+# Sentry Error Tracking
+SENTRY_DSN=https://your-sentry-dsn@sentry.io/project-id
+SENTRY_ENVIRONMENT=development
+SENTRY_RELEASE=1.0.0
+
+# Google Analytics
+GOOGLE_ANALYTICS_ID=GA_MEASUREMENT_ID
+GOOGLE_TAG_MANAGER_ID=GTM-XXXXXXX
+
+# Facebook Pixel
+FACEBOOK_PIXEL_ID=your_facebook_pixel_id_here
+
+# Hotjar
+HOTJAR_ID=your_hotjar_id_here
+
+# =============================================================================
+# TESTING CONFIGURATION
+# =============================================================================
+
+# Testing Settings
+IS_CI=false
+NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# E2E Test Configuration
+PLAYWRIGHT_BASE_URL=http://localhost:8080
+PLAYWRIGHT_TIMEOUT=30000
+
+# =============================================================================
+# BUILD AND DEPLOYMENT
+# =============================================================================
+
+# Build Settings
+PRERELEASE=false
+WEBPACK_ANALYZE=false
+BUNDLE_ANALYZER=false
+
+# Performance Monitoring
+LIGHTHOUSE_ENABLED=false
+LIGHTHOUSE_PORT=9222
+
+# =============================================================================
+# SECURITY AND COMPLIANCE
+# =============================================================================
+
+# PCI Compliance
+PCI_COMPLIANCE_ENABLED=true
+PCI_DATA_ENCRYPTION_KEY=your_pci_encryption_key_here
+
+# CSRF Protection
+CSRF_TOKEN_SECRET=your_csrf_token_secret_here
+
+# Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+
+# =============================================================================
+# INTERNATIONALIZATION
+# =============================================================================
+
+# Default Language and Currency
+DEFAULT_LOCALE=en-US
+DEFAULT_CURRENCY=USD
+SUPPORTED_LOCALES=en-US,en-CA,es-ES,fr-FR,de-DE
+
+# =============================================================================
+# FEATURE FLAGS
+# =============================================================================
+
+# Enable/Disable Features
+ENABLE_APPLE_PAY=true
+ENABLE_GOOGLE_PAY=true
+ENABLE_AMAZON_PAY=true
+ENABLE_KLARNA=true
+ENABLE_AFFIRM=true
+ENABLE_AFTERPAY=true
+
+# =============================================================================
+# PERFORMANCE AND OPTIMIZATION
+# =============================================================================
+
+# Bundle Optimization
+ENABLE_CODE_SPLITTING=true
+ENABLE_TREE_SHAKING=true
+ENABLE_MINIFICATION=true
+
+# Caching
+CACHE_DURATION=3600
+ENABLE_SERVICE_WORKER=false
+
+# =============================================================================
+# DEVELOPMENT TOOLS
+# =============================================================================
+
+# Debugging
+ENABLE_DEBUG_LOGGING=false
+ENABLE_PERFORMANCE_MONITORING=false
+ENABLE_ERROR_BOUNDARIES=true
+
+# Development Server
+ENABLE_HOT_RELOAD=true
+ENABLE_SOURCE_MAPS=true
+ENABLE_ESLINT_WATCH=true
+
+# =============================================================================
+# THIRD-PARTY INTEGRATIONS
+# =============================================================================
+
+# Customer Support
+ZENDESK_WIDGET_ID=your_zendesk_widget_id_here
+INTERCOM_APP_ID=your_intercom_app_id_here
+
+# Marketing Tools
+MAILCHIMP_API_KEY=your_mailchimp_api_key_here
+KLAVIYO_API_KEY=your_klaviyo_api_key_here
+
+# =============================================================================
+# NOTES
+# =============================================================================
+
+# 1. Replace all placeholder values with your actual credentials
+# 2. Never commit this file with real values to version control
+# 3. Use different values for development, staging, and production
+# 4. Rotate secrets regularly for security
+# 5. Validate configuration before deployment
+# 6. Monitor for configuration-related errors
+# 7. Use secret management services in production
+# 8. Follow PCI DSS compliance requirements for payment data

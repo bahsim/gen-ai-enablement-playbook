@@ -1,0 +1,791 @@
+# AI-Optimized Code Generation Templates
+# Machine-readable code patterns for AI code generation
+
+code_generation:
+  component_templates:
+    CheckoutStep:
+      type: "React Class Component"
+      template: |
+        import React, { Component, createRef } from 'react';
+        import { CSSTransition } from 'react-transition-group';
+        import classNames from 'classnames';
+        import { noop } from 'lodash';
+        
+        import { isMobileView, MobileView } from '../ui/responsive';
+        import CheckoutStepHeader from './CheckoutStepHeader';
+        import CheckoutStepType from './CheckoutStepType';
+        
+        export interface {ComponentName}Props {
+          children?: ReactNode;
+          heading?: ReactNode;
+          isActive?: boolean;
+          isBusy: boolean;
+          isComplete?: boolean;
+          isEditable?: boolean;
+          suggestion?: ReactNode;
+          summary?: ReactNode;
+          type: CheckoutStepType;
+          onExpanded?(step: CheckoutStepType): void;
+          onEdit?(step: CheckoutStepType): void;
+        }
+        
+        export interface {ComponentName}State {
+          isClosed: boolean;
+        }
+        
+        export default class {ComponentName} extends Component<{ComponentName}Props, {ComponentName}State> {
+          state = {
+            isClosed: true,
+          };
+          
+          private containerRef = createRef<HTMLLIElement>();
+          private contentRef = createRef<HTMLDivElement>();
+          private timeoutRef?: number;
+          private timeoutDelay?: number;
+          
+          componentDidMount(): void {
+            const { isActive } = this.props;
+            
+            if (isActive) {
+              this.focusStep();
+            }
+          }
+          
+          componentDidUpdate(prevProps: Readonly<{ComponentName}Props>): void {
+            const { isActive } = this.props;
+            
+            if (isActive && isActive !== prevProps.isActive) {
+              this.focusStep();
+            }
+          }
+          
+          componentWillUnmount(): void {
+            if (this.timeoutRef) {
+              window.clearTimeout(this.timeoutRef);
+              this.timeoutRef = undefined;
+            }
+          }
+          
+          render(): ReactNode {
+            const { heading, isActive, isComplete, isEditable, onEdit, suggestion, summary, type } = this.props;
+            const { isClosed } = this.state;
+            
+            return (
+              <li
+                className={classNames('checkout-step', 'optimizedCheckout-checkoutStep', {
+                  [`checkout-step--${type}`]: !!type,
+                  ['checkout-step--active']: isActive,
+                })}
+                ref={this.containerRef}
+              >
+                <div className="checkout-view-header">
+                  <CheckoutStepHeader
+                    heading={heading}
+                    isActive={isActive}
+                    isComplete={isComplete}
+                    isEditable={isEditable}
+                    onEdit={onEdit}
+                    summary={summary}
+                    type={type}
+                  />
+                </div>
+                
+                {suggestion && isClosed && !isActive && (
+                  <div className="checkout-suggestion" data-test="step-suggestion">
+                    {suggestion}
+                  </div>
+                )}
+                
+                {this.renderContent()}
+              </li>
+            );
+          }
+          
+          private renderContent(): ReactNode {
+            const { children, isActive, isBusy } = this.props;
+            
+            return (
+              <MobileView>
+                {(matched) => (
+                  <CSSTransition
+                    addEndListener={this.handleTransitionEnd}
+                    classNames="checkout-view-content"
+                    enter={!matched}
+                    exit={!matched}
+                    in={isActive}
+                    mountOnEnter
+                    onExited={this.onAnimationEnd}
+                    timeout={{}}
+                    unmountOnExit
+                  >
+                    <div
+                      aria-busy={isBusy}
+                      className="checkout-view-content"
+                      ref={this.contentRef}
+                    >
+                      {isActive ? children : null}
+                    </div>
+                  </CSSTransition>
+                )}
+              </MobileView>
+            );
+          }
+          
+          private focusStep(): void {
+            const delay = isMobileView() ? 0 : this.getTransitionDelay();
+            
+            this.setState({ isClosed: false });
+            
+            this.timeoutRef = window.setTimeout(() => {
+              const input = this.getChildInput();
+              const position = this.getScrollPosition();
+              const { type, onExpanded = noop } = this.props;
+              
+              if (input) {
+                input.focus();
+              }
+              
+              if (position !== undefined && !isNaN(position)) {
+                window.scrollTo(0, position);
+              }
+              
+              onExpanded(type);
+              
+              this.timeoutRef = undefined;
+            }, delay);
+          }
+          
+          private getChildInput(): HTMLElement | undefined {
+            const container = this.containerRef.current;
+            
+            if (!container) {
+              return;
+            }
+            
+            const input = container.querySelector<HTMLElement>('input, select, textarea');
+            
+            return input || undefined;
+          }
+          
+          private getScrollPosition(): number | undefined {
+            const container = this.getParentContainer();
+            const { isComplete } = this.props;
+            
+            if (!container || window !== window.top) {
+              return;
+            }
+            
+            const topOffset = isComplete ? 0 : window.innerHeight / 5;
+            const containerOffset =
+              container.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+            
+            return containerOffset - topOffset;
+          }
+          
+          private getParentContainer(): HTMLElement | undefined {
+            let container: HTMLElement | null = this.containerRef.current;
+            
+            while (container && container.parentElement) {
+              if (container.parentElement.classList.contains('checkout-step')) {
+                return container.parentElement;
+              }
+              
+              container = container.parentElement;
+            }
+            
+            return this.containerRef.current ? this.containerRef.current : undefined;
+          }
+          
+          private getTransitionDelay(): number {
+            if (this.timeoutDelay !== undefined) {
+              return this.timeoutDelay;
+            }
+            
+            this.timeoutDelay =
+              parseFloat(
+                this.contentRef.current
+                  ? getComputedStyle(this.contentRef.current).transitionDuration
+                  : '0s',
+              ) * 1000;
+            
+            return this.timeoutDelay;
+          }
+          
+          private handleTransitionEnd: (node: HTMLElement, done: () => void) => void = (node, done) => {
+            node.addEventListener('transitionend', ({ target }) => {
+              if (target === node) {
+                done();
+              }
+            });
+          };
+          
+          private onAnimationEnd = (): void => {
+            const { isActive } = this.props;
+            
+            if (!isActive) {
+              this.setState({ isClosed: true });
+            }
+          }
+        }
+      imports:
+        - "React"
+        - "Component"
+        - "createRef"
+        - "CSSTransition"
+        - "classNames"
+        - "noop"
+        - "isMobileView"
+        - "MobileView"
+        - "CheckoutStepHeader"
+        - "CheckoutStepType"
+      dependencies:
+        - "CheckoutStepHeader"
+        - "CSSTransition"
+        - "MobileView"
+      lifecycle_methods:
+        - "componentDidMount"
+        - "componentDidUpdate"
+        - "componentWillUnmount"
+      event_handlers:
+        - "focusStep"
+        - "handleTransitionEnd"
+        - "onAnimationEnd"
+        - "getChildInput"
+        - "getScrollPosition"
+        - "getParentContainer"
+        - "getTransitionDelay"
+
+    CheckoutStepHeader:
+      type: "React Function Component"
+      template: |
+        import classNames from 'classnames';
+        import { noop } from 'lodash';
+        import React, { FunctionComponent, memo, ReactNode } from 'react';
+        
+        import { preventDefault } from '@bigcommerce/checkout/dom-utils';
+        import { TranslatedString } from '@bigcommerce/checkout/locale';
+        import { useStyleContext } from '@bigcommerce/checkout/payment-integration-api';
+        
+        import { Button, ButtonSize, ButtonVariant } from '../ui/button';
+        import { IconCheck } from '../ui/icon';
+        
+        import CheckoutStepType from './CheckoutStepType';
+        
+        export interface {ComponentName}Props {
+          heading: ReactNode;
+          isActive?: boolean;
+          isComplete?: boolean;
+          isEditable?: boolean;
+          summary?: ReactNode;
+          type: CheckoutStepType;
+          onEdit?(type: CheckoutStepType): void;
+        }
+        
+        const {ComponentName}: FunctionComponent<{ComponentName}Props> = ({
+          heading,
+          isActive,
+          isComplete,
+          isEditable,
+          onEdit,
+          summary,
+          type,
+        }) => {
+          const { newFontStyle } = useStyleContext();
+          
+          return (
+            <div
+              className={classNames('stepHeader', {
+                'is-readonly': !isEditable,
+                'is-clickable': isEditable && !isActive,
+                'stepHeader--active': isActive,
+                'stepHeader--inactive': !isActive,
+              })}
+              onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+            >
+              <div className="stepHeader-figure stepHeader-column">
+                <IconCheck
+                  additionalClassName={classNames(
+                    'optimizedCheckout-step',
+                  )}
+                />
+                
+                <h2
+                  className={classNames('stepHeader-title optimizedCheckout-headingPrimary',
+                    { 'header': newFontStyle && (isActive || isComplete) },
+                    { 'header-secondary': newFontStyle && !isActive && !isComplete })}
+                >{heading}</h2>
+              </div>
+              
+              <div
+                className={classNames('stepHeader-body stepHeader-column optimizedCheckout-contentPrimary',
+                  { 'body-regular': newFontStyle })}
+                data-test="step-info"
+              >
+                {!isActive && isComplete && summary}
+              </div>
+              
+              {isEditable && !isActive && (
+                <div className="stepHeader-actions stepHeader-column">
+                  <Button
+                    aria-expanded={isActive}
+                    className={classNames({ 'body-regular': newFontStyle })}
+                    size={ButtonSize.Tiny}
+                    testId="step-edit-button"
+                    variant={ButtonVariant.Secondary}
+                  >
+                    <TranslatedString id="common.edit_action" />
+                  </Button>
+                </div>
+              )}
+            </div>
+          );
+        };
+        
+        export default memo({ComponentName});
+      imports:
+        - "classNames"
+        - "noop"
+        - "React"
+        - "FunctionComponent"
+        - "memo"
+        - "ReactNode"
+        - "preventDefault"
+        - "TranslatedString"
+        - "useStyleContext"
+        - "Button"
+        - "ButtonSize"
+        - "ButtonVariant"
+        - "IconCheck"
+        - "CheckoutStepType"
+      dependencies:
+        - "Button"
+        - "IconCheck"
+        - "TranslatedString"
+      lifecycle_methods: []
+      event_handlers:
+        - "onEdit"
+
+    CheckoutApp:
+      type: "React Class Component"
+      template: |
+        import { createCheckoutService, createEmbeddedCheckoutMessenger } from '@bigcommerce/checkout-sdk';
+        import { BrowserOptions } from '@sentry/browser';
+        import React, { Component } from 'react';
+        import ReactModal from 'react-modal';
+        
+        import { AnalyticsProvider } from '@bigcommerce/checkout/analytics';
+        import { ExtensionProvider } from '@bigcommerce/checkout/checkout-extension';
+        import { ErrorBoundary, ErrorLogger } from '@bigcommerce/checkout/error-handling-utils';
+        import { getLanguageService, LocaleProvider } from '@bigcommerce/checkout/locale';
+        import { CheckoutProvider, StyleProvider } from '@bigcommerce/checkout/payment-integration-api';
+        
+        import '../../scss/App.scss';
+        
+        import { createErrorLogger } from '../common/error';
+        import {
+          createEmbeddedCheckoutStylesheet,
+          createEmbeddedCheckoutSupport,
+        } from '../embeddedCheckout';
+        
+        import Checkout from './Checkout';
+        
+        export interface {ComponentName}Props {
+          checkoutId: string;
+          containerId: string;
+          publicPath?: string;
+          sentryConfig?: BrowserOptions;
+          sentrySampleRate?: number;
+        }
+        
+        export default class {ComponentName} extends Component<{ComponentName}Props> {
+          private checkoutService = createCheckoutService({
+            locale: getLanguageService().getLocale(),
+            shouldWarnMutation: process.env.NODE_ENV === 'development',
+          });
+          private embeddedStylesheet = createEmbeddedCheckoutStylesheet();
+          private embeddedSupport = createEmbeddedCheckoutSupport(getLanguageService());
+          private errorLogger: ErrorLogger;
+          
+          constructor(props: Readonly<{ComponentName}Props>) {
+            super(props);
+            
+            this.errorLogger = createErrorLogger(
+              { sentry: props.sentryConfig },
+              {
+                errorTypes: ['UnrecoverableError'],
+                publicPath: props.publicPath,
+                sampleRate: props.sentrySampleRate ? props.sentrySampleRate : 0.1,
+              },
+            );
+          }
+          
+          componentDidMount(): void {
+            const { containerId } = this.props;
+            
+            ReactModal.setAppElement(`#${containerId}`);
+          }
+          
+          render() {
+            return (
+              <ErrorBoundary logger={this.errorLogger}>
+                <LocaleProvider checkoutService={this.checkoutService}>
+                  <CheckoutProvider checkoutService={this.checkoutService}>
+                    <AnalyticsProvider checkoutService={this.checkoutService}>
+                      <ExtensionProvider
+                        checkoutService={this.checkoutService}
+                        errorLogger={createErrorLogger()}
+                      >
+                        <StyleProvider>
+                          <Checkout
+                            {...this.props}
+                            createEmbeddedMessenger={createEmbeddedCheckoutMessenger}
+                            embeddedStylesheet={this.embeddedStylesheet}
+                            embeddedSupport={this.embeddedSupport}
+                            errorLogger={this.errorLogger}
+                          />
+                        </StyleProvider>
+                      </ExtensionProvider>
+                    </AnalyticsProvider>
+                  </CheckoutProvider>
+                </LocaleProvider>
+              </ErrorBoundary>
+            );
+          }
+        }
+      imports:
+        - "createCheckoutService"
+        - "createEmbeddedCheckoutMessenger"
+        - "BrowserOptions"
+        - "React"
+        - "Component"
+        - "ReactModal"
+        - "AnalyticsProvider"
+        - "ExtensionProvider"
+        - "ErrorBoundary"
+        - "ErrorLogger"
+        - "getLanguageService"
+        - "LocaleProvider"
+        - "CheckoutProvider"
+        - "StyleProvider"
+        - "createErrorLogger"
+        - "createEmbeddedCheckoutStylesheet"
+        - "createEmbeddedCheckoutSupport"
+        - "Checkout"
+      dependencies:
+        - "ErrorBoundary"
+        - "LocaleProvider"
+        - "CheckoutProvider"
+        - "AnalyticsProvider"
+        - "ExtensionProvider"
+        - "StyleProvider"
+        - "Checkout"
+      lifecycle_methods:
+        - "componentDidMount"
+        - "render"
+      event_handlers: []
+
+  hook_templates:
+    useAnalytics:
+      type: "Custom Hook"
+      template: |
+        import { useAnalytics } from '@bigcommerce/checkout/analytics';
+        
+        export const useAnalytics = () => {
+          const { analyticsTracker } = useAnalytics();
+          
+          const trackStepView = (stepType: CheckoutStepType) => {
+            analyticsTracker.checkoutStepView(stepType);
+          };
+          
+          const trackStepComplete = (stepType: CheckoutStepType) => {
+            analyticsTracker.checkoutStepComplete(stepType);
+          };
+          
+          const trackCustomEvent = (eventName: string, properties: object) => {
+            analyticsTracker.track(eventName, properties);
+          };
+          
+          return {
+            trackStepView,
+            trackStepComplete,
+            trackCustomEvent,
+            analyticsTracker
+          };
+        };
+      imports:
+        - "useAnalytics"
+      dependencies:
+        - "analytics_context"
+      methods:
+        - "trackStepView"
+        - "trackStepComplete"
+        - "trackCustomEvent"
+
+    withCheckout:
+      type: "Higher-Order Component"
+      template: |
+        import { createMappableInjectHoc } from '@bigcommerce/checkout/legacy-hoc';
+        import { CheckoutContext, CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
+        
+        export type WithCheckoutProps = CheckoutContextProps;
+        
+        const withCheckout = createMappableInjectHoc(CheckoutContext, {
+          displayNamePrefix: 'WithCheckout',
+        });
+        
+        export default withCheckout;
+      imports:
+        - "createMappableInjectHoc"
+        - "CheckoutContext"
+        - "CheckoutContextProps"
+      dependencies:
+        - "CheckoutContext"
+      methods:
+        - "createMappableInjectHoc"
+
+  selector_templates:
+    getCheckoutStepStatuses:
+      type: "Reselect Selector"
+      template: |
+        import { CheckoutSelectors } from '@bigcommerce/checkout-sdk';
+        import { compact } from 'lodash';
+        import { createSelector } from 'reselect';
+        
+        import { shouldUseStripeLinkByMinimumAmount } from '@bigcommerce/checkout/instrument-utils';
+        
+        import { isValidAddress } from '../address';
+        import { EMPTY_ARRAY, isExperimentEnabled } from '../common/utility';
+        import { SUPPORTED_METHODS } from '../customer';
+        import { PaymentMethodId } from '../payment/paymentMethod';
+        import {
+          hasSelectedShippingOptions,
+          hasUnassignedLineItems,
+          itemsRequireShipping,
+        } from '../shipping';
+        
+        import CheckoutStepStatus from './CheckoutStepStatus';
+        import CheckoutStepType from './CheckoutStepType';
+        
+        const getCustomerStepStatus = createSelector(
+          ({ data }: CheckoutSelectors) => data.getCheckout(),
+          ({ data }: CheckoutSelectors) => data.getCustomer(),
+          ({ data }: CheckoutSelectors) => data.getBillingAddress(),
+          ({ data }: CheckoutSelectors) => data.getConfig(),
+          ({ data }: CheckoutSelectors) => data.getCart(),
+          ({ data }: CheckoutSelectors) => data.getPaymentProviderCustomer(),
+          (checkout, customer, billingAddress, config, cart, paymentProviderCustomer) => {
+            // Customer step validation logic
+            const hasEmail = !!(
+              (customer && customer.email) ||
+              (billingAddress && billingAddress.email)
+            );
+            const isUsingWallet =
+              checkout && checkout.payments
+                ? checkout.payments.some(
+                    (payment: CheckoutPayment) => SUPPORTED_METHODS.indexOf(payment.providerId) >= 0,
+                  )
+                : false;
+            const isGuest = !!(customer && customer.isGuest);
+            const isComplete = hasEmail || isUsingWallet;
+            const isEditable = isComplete && !isUsingWallet && isGuest;
+            
+            return {
+              type: CheckoutStepType.Customer,
+              isActive: false,
+              isComplete,
+              isEditable,
+              isRequired: true,
+            };
+          },
+        );
+        
+        const getCheckoutStepStatuses = createSelector(
+          getCustomerStepStatus,
+          getShippingStepStatus,
+          getBillingStepStatus,
+          getPaymentStepStatus,
+          getOrderSubmitStatus,
+          (customerStep, shippingStep, billingStep, paymentStep, orderStatus) => {
+            const isSubmittingOrder = orderStatus;
+            const steps = compact([customerStep, shippingStep, billingStep, paymentStep]);
+            
+            const orderDetailsStep: CheckoutStepStatus = {
+              type: CheckoutStepType.OrderDetails,
+              isActive: false,
+              isBusy: false,
+              isComplete: true,
+              isEditable: false,
+              isRequired: true,
+            };
+            
+            const billingAndPaymentStep: CheckoutStepStatus = {
+              type: CheckoutStepType.BillingAndPayment,
+              isActive: false,
+              isBusy: false,
+              isComplete: billingStep.isComplete && paymentStep.isComplete,
+              isEditable: billingStep.isEditable && paymentStep.isEditable,
+              isRequired: billingStep.isRequired || paymentStep.isRequired,
+            };
+            
+            const defaultActiveStep =
+              steps.find((step) => !step.isComplete && step.isRequired) || billingAndPaymentStep;
+            
+            return [...steps, orderDetailsStep, billingAndPaymentStep].map((step, index) => {
+              const isPrevStepComplete = steps
+                .slice(0, index)
+                .every((prevStep) => prevStep.isComplete || !prevStep.isRequired);
+              
+              return {
+                ...step,
+                isActive: defaultActiveStep.type === step.type,
+                isBusy: false,
+                isEditable: isPrevStepComplete && step.isEditable && !isSubmittingOrder,
+              };
+            });
+          },
+        );
+        
+        export default getCheckoutStepStatuses;
+      imports:
+        - "CheckoutSelectors"
+        - "compact"
+        - "createSelector"
+        - "shouldUseStripeLinkByMinimumAmount"
+        - "isValidAddress"
+        - "EMPTY_ARRAY"
+        - "isExperimentEnabled"
+        - "SUPPORTED_METHODS"
+        - "PaymentMethodId"
+        - "hasSelectedShippingOptions"
+        - "hasUnassignedLineItems"
+        - "itemsRequireShipping"
+        - "CheckoutStepStatus"
+        - "CheckoutStepType"
+      dependencies:
+        - "getCustomerStepStatus"
+        - "getShippingStepStatus"
+        - "getBillingStepStatus"
+        - "getPaymentStepStatus"
+        - "getOrderSubmitStatus"
+      methods:
+        - "getCustomerStepStatus"
+        - "getShippingStepStatus"
+        - "getBillingStepStatus"
+        - "getPaymentStepStatus"
+        - "getOrderSubmitStatus"
+
+  validation_templates:
+    address_validation:
+      type: "Validation Function"
+      template: |
+        import { Address, AddressField } from '@bigcommerce/checkout-sdk';
+        
+        export const isValidAddress = (address: Address, fields: AddressField[]): boolean => {
+          if (!address) {
+            return false;
+          }
+          
+          return fields.every(field => {
+            if (field.required && !address[field.name]) {
+              return false;
+            }
+            
+            if (field.validation && address[field.name]) {
+              return field.validation.test(address[field.name]);
+            }
+            
+            return true;
+          });
+        };
+      imports:
+        - "Address"
+        - "AddressField"
+      parameters:
+        - name: "address"
+          type: "Address"
+          description: "Address object to validate"
+        - name: "fields"
+          type: "AddressField[]"
+          description: "Country-specific address fields"
+      returns:
+        type: "boolean"
+        description: "Whether address is valid"
+
+    email_validation:
+      type: "Validation Function"
+      template: |
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        
+        export const isValidEmail = (email: string): boolean => {
+          return emailRegex.test(email);
+        };
+      imports: []
+      parameters:
+        - name: "email"
+          type: "string"
+          description: "Email address to validate"
+      returns:
+        type: "boolean"
+        description: "Whether email is valid"
+
+  error_handling_templates:
+    error_boundary:
+      type: "Error Boundary Component"
+      template: |
+        import React, { Component, ErrorInfo, ReactNode } from 'react';
+        
+        interface Props {
+          children: ReactNode;
+          logger?: ErrorLogger;
+        }
+        
+        interface State {
+          hasError: boolean;
+          error?: Error;
+        }
+        
+        export class ErrorBoundary extends Component<Props, State> {
+          constructor(props: Props) {
+            super(props);
+            this.state = { hasError: false };
+          }
+          
+          static getDerivedStateFromError(error: Error): State {
+            return { hasError: true, error };
+          }
+          
+          componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+            console.error('Error caught by boundary:', error, errorInfo);
+            
+            if (this.props.logger) {
+              this.props.logger.log(error, errorInfo);
+            }
+          }
+          
+          render() {
+            if (this.state.hasError) {
+              return (
+                <div className="error-boundary">
+                  <h2>Something went wrong</h2>
+                  <p>Please refresh the page and try again.</p>
+                  <button onClick={() => window.location.reload()}>
+                    Refresh Page
+                  </button>
+                </div>
+              );
+            }
+            
+            return this.props.children;
+          }
+        }
+      imports:
+        - "React"
+        - "Component"
+        - "ErrorInfo"
+        - "ReactNode"
+      dependencies:
+        - "ErrorLogger"
+      lifecycle_methods:
+        - "getDerivedStateFromError"
+        - "componentDidCatch"
+        - "render"

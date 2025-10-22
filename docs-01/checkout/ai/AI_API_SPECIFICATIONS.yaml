@@ -1,0 +1,441 @@
+# AI-Optimized API Specifications
+# Machine-readable API definitions for AI processing
+
+api_specifications:
+  CheckoutAppProps:
+    type: "Interface"
+    description: "Props for CheckoutApp component"
+    properties:
+      checkoutId:
+        type: "string"
+        required: true
+        description: "Your checkout ID"
+        example: "checkout_123456"
+      containerId:
+        type: "string"
+        required: true
+        description: "DOM container ID"
+        example: "checkout-container"
+      publicPath:
+        type: "string"
+        required: false
+        description: "Public asset path"
+        example: "/assets/"
+        default: "undefined"
+      sentryConfig:
+        type: "BrowserOptions"
+        required: false
+        description: "Error tracking configuration"
+        properties:
+          dsn:
+            type: "string"
+            description: "Sentry DSN"
+          environment:
+            type: "string"
+            description: "Environment name"
+        example: "{ dsn: 'https://...', environment: 'production' }"
+      sentrySampleRate:
+        type: "number"
+        required: false
+        description: "Error sampling rate"
+        range: [0, 1]
+        default: 0.1
+        example: 0.1
+
+  CheckoutStepProps:
+    type: "Interface"
+    description: "Props for CheckoutStep component"
+    properties:
+      children:
+        type: "ReactNode"
+        required: false
+        description: "Step content"
+        example: "<CustomerForm />"
+      heading:
+        type: "ReactNode"
+        required: false
+        description: "Step heading"
+        example: "Customer Information"
+      isActive:
+        type: "boolean"
+        required: false
+        description: "Whether step is currently active"
+        default: false
+        example: true
+      isBusy:
+        type: "boolean"
+        required: true
+        description: "Whether step is in a busy/loading state"
+        example: false
+      isComplete:
+        type: "boolean"
+        required: false
+        description: "Whether step is completed"
+        default: false
+        example: true
+      isEditable:
+        type: "boolean"
+        required: false
+        description: "Whether step can be edited"
+        default: false
+        example: true
+      suggestion:
+        type: "ReactNode"
+        required: false
+        description: "Step suggestion"
+        example: "Complete your profile to save time"
+      summary:
+        type: "ReactNode"
+        required: false
+        description: "Step summary"
+        example: "john@example.com"
+      type:
+        type: "CheckoutStepType"
+        required: true
+        description: "Type of the step"
+        enum: ["customer", "shipping", "billing", "payment", "order-details", "billing-and-payment"]
+        example: "customer"
+      onExpanded:
+        type: "(step: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is expanded"
+        parameters:
+          step:
+            type: "CheckoutStepType"
+            description: "The step type that was expanded"
+        example: "(step) => console.log('Step expanded:', step)"
+      onEdit:
+        type: "(step: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is edited"
+        parameters:
+          step:
+            type: "CheckoutStepType"
+            description: "The step type that was edited"
+        example: "(step) => console.log('Step edited:', step)"
+
+  CheckoutStepHeaderProps:
+    type: "Interface"
+    description: "Props for CheckoutStepHeader component"
+    properties:
+      heading:
+        type: "ReactNode"
+        required: true
+        description: "Step heading"
+        example: "Customer Information"
+      isActive:
+        type: "boolean"
+        required: false
+        description: "Whether step is currently active"
+        default: false
+        example: true
+      isComplete:
+        type: "boolean"
+        required: false
+        description: "Whether step is completed"
+        default: false
+        example: true
+      isEditable:
+        type: "boolean"
+        required: false
+        description: "Whether step can be edited"
+        default: false
+        example: true
+      summary:
+        type: "ReactNode"
+        required: false
+        description: "Step summary"
+        example: "john@example.com"
+      type:
+        type: "CheckoutStepType"
+        required: true
+        description: "Type of the step"
+        enum: ["customer", "shipping", "billing", "payment", "order-details", "billing-and-payment"]
+        example: "customer"
+      onEdit:
+        type: "(type: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is edited"
+        parameters:
+          type:
+            type: "CheckoutStepType"
+            description: "The step type that was edited"
+        example: "(type) => console.log('Step edited:', type)"
+
+  CheckoutSuggestionProps:
+    type: "Interface"
+    description: "Props for CheckoutSuggestion component"
+    properties:
+      onUnhandledError:
+        type: "(error: Error) => void"
+        required: false
+        description: "Error handling callback"
+        parameters:
+          error:
+            type: "Error"
+            description: "The error that occurred"
+        example: "(error) => console.error('Suggestion error:', error)"
+
+  WithCheckoutSuggestionsProps:
+    type: "Interface"
+    description: "Props injected by withCheckout HOC for CheckoutSuggestion"
+    properties:
+      isExecutingPaymentMethodCheckout:
+        type: "boolean"
+        required: true
+        description: "Whether payment method checkout is executing"
+        example: false
+      providerWithCustomCheckout:
+        type: "string"
+        required: false
+        description: "Custom checkout provider"
+        example: "bolt"
+      deinitializeCustomer:
+        type: "(options: CustomerRequestOptions) => Promise<CheckoutSelectors>"
+        required: true
+        description: "Deinitialize customer"
+        parameters:
+          options:
+            type: "CustomerRequestOptions"
+            description: "Customer request options"
+        returns:
+          type: "Promise<CheckoutSelectors>"
+          description: "Promise resolving to checkout selectors"
+      executePaymentMethodCheckout:
+        type: "(options: ExecutePaymentMethodCheckoutOptions) => Promise<CheckoutSelectors>"
+        required: true
+        description: "Execute payment method checkout"
+        parameters:
+          options:
+            type: "ExecutePaymentMethodCheckoutOptions"
+            description: "Payment method checkout options"
+        returns:
+          type: "Promise<CheckoutSelectors>"
+          description: "Promise resolving to checkout selectors"
+      initializeCustomer:
+        type: "(options: CustomerInitializeOptions) => Promise<CheckoutSelectors>"
+        required: true
+        description: "Initialize customer"
+        parameters:
+          options:
+            type: "CustomerInitializeOptions"
+            description: "Customer initialization options"
+        returns:
+          type: "Promise<CheckoutSelectors>"
+          description: "Promise resolving to checkout selectors"
+
+# Step Types
+step_types:
+  CheckoutStepType:
+    type: "Enum"
+    description: "Enumeration of checkout step types"
+    values:
+      Billing:
+        value: "billing"
+        description: "Billing address and information step"
+      Customer:
+        value: "customer"
+        description: "Customer information and authentication step"
+      Payment:
+        value: "payment"
+        description: "Payment method selection and processing step"
+      Shipping:
+        value: "shipping"
+        description: "Shipping address and method selection step"
+      OrderDetails:
+        value: "order-details"
+        description: "Order summary and confirmation step (POA custom)"
+      BillingAndPayment:
+        value: "billing-and-payment"
+        description: "Combined billing and payment step (POA custom)"
+
+  CheckoutStepStatus:
+    type: "Interface"
+    description: "Status information for a checkout step"
+    properties:
+      isActive:
+        type: "boolean"
+        required: true
+        description: "Whether the step is currently active"
+        example: true
+      isBusy:
+        type: "boolean"
+        required: true
+        description: "Whether the step is in a busy/loading state"
+        example: false
+      isComplete:
+        type: "boolean"
+        required: true
+        description: "Whether the step is completed"
+        example: true
+      isEditable:
+        type: "boolean"
+        required: true
+        description: "Whether the step can be edited"
+        example: true
+      isRequired:
+        type: "boolean"
+        required: true
+        description: "Whether the step is required"
+        example: true
+      type:
+        type: "CheckoutStepType"
+        required: true
+        description: "The type of the step"
+        example: "customer"
+
+# Support Interfaces
+support_interfaces:
+  CheckoutSupport:
+    type: "Interface"
+    description: "Feature support checking interface"
+    methods:
+      isSupported:
+        parameters:
+          - name: "ids"
+            type: "string[]"
+            description: "Feature IDs to check"
+            variadic: true
+        returns:
+          type: "boolean"
+          description: "True if all features are supported, throws error if not"
+        description: "Check if features are supported"
+
+  NoopCheckoutSupport:
+    type: "Class"
+    description: "No-op implementation of CheckoutSupport"
+    implements: ["CheckoutSupport"]
+    methods:
+      isSupported:
+        parameters:
+          - name: "ids"
+            type: "string[]"
+            description: "Feature IDs to check"
+            variadic: true
+        returns:
+          type: "boolean"
+          description: "Always returns true"
+        description: "Always returns true for all features"
+
+# Hooks and Utilities
+hooks:
+  useAnalytics:
+    type: "Hook"
+    description: "Analytics tracking hook"
+    returns:
+      analyticsTracker:
+        type: "AnalyticsTracker"
+        description: "Analytics tracker instance"
+        methods:
+          checkoutStepView:
+            parameters:
+              - name: "stepType"
+                type: "CheckoutStepType"
+                description: "The step type that was viewed"
+            returns: "void"
+            description: "Track step view event"
+          customerSuggestionExecute:
+            parameters: []
+            returns: "void"
+            description: "Track customer suggestion execution"
+          track:
+            parameters:
+              - name: "eventName"
+                type: "string"
+                description: "Event name"
+              - name: "properties"
+                type: "object"
+                description: "Event properties"
+            returns: "void"
+            description: "Track custom event"
+
+  withCheckout:
+    type: "HOC"
+    description: "Higher-Order Component for checkout context injection"
+    parameters:
+      mapToCheckoutProps:
+        type: "function"
+        description: "Function to map checkout state to props"
+        parameters:
+          - name: "context"
+            type: "CheckoutContextProps"
+            description: "Checkout context props"
+        returns:
+          type: "object"
+          description: "Mapped props"
+    returns:
+      type: "function"
+      description: "Enhanced component with checkout props"
+    usage: "withCheckout(mapToCheckoutProps)(Component)"
+
+# State Management
+state_management:
+  CheckoutState:
+    type: "Interface"
+    description: "Complete checkout state interface"
+    properties:
+      data:
+        type: "object"
+        description: "Checkout data selectors"
+        properties:
+          getCheckout:
+            type: "() => Checkout | undefined"
+            description: "Get checkout data"
+          getCustomer:
+            type: "() => Customer | undefined"
+            description: "Get customer data"
+          getBillingAddress:
+            type: "() => Address | undefined"
+            description: "Get billing address"
+          getShippingAddress:
+            type: "() => Address | undefined"
+            description: "Get shipping address"
+          getConsignments:
+            type: "() => Consignment[] | undefined"
+            description: "Get consignments"
+          getCart:
+            type: "() => Cart | undefined"
+            description: "Get cart data"
+          getConfig:
+            type: "() => Config | undefined"
+            description: "Get configuration"
+          getOrder:
+            type: "() => Order | undefined"
+            description: "Get order data"
+      statuses:
+        type: "object"
+        description: "Checkout status selectors"
+        properties:
+          isLoadingCheckout:
+            type: "() => boolean"
+            description: "Whether checkout is loading"
+          isPending:
+            type: "() => boolean"
+            description: "Whether checkout is pending"
+          isSubmittingOrder:
+            type: "() => boolean"
+            description: "Whether order is being submitted"
+      errors:
+        type: "object"
+        description: "Error selectors"
+        properties:
+          getSubmitOrderError:
+            type: "() => Error | undefined"
+            description: "Get submit order error"
+
+  getCheckoutStepStatuses:
+    type: "Selector"
+    description: "Calculate step statuses based on checkout state"
+    parameters:
+      - name: "checkoutState"
+        type: "CheckoutSelectors"
+        description: "Checkout selectors"
+    returns:
+      type: "CheckoutStepStatus[]"
+      description: "Array of step statuses"
+    dependencies:
+      - "getCustomerStepStatus"
+      - "getShippingStepStatus"
+      - "getBillingStepStatus"
+      - "getPaymentStepStatus"
+      - "getOrderSubmitStatus"
