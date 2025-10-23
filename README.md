@@ -18,4 +18,5 @@ This playbook guides developers from basic GenAI interaction to a sophisticated,
 12. [**The Living Documentation Standard:** A Definitive Guide](./12-the-living-documentation-standard.md)
 13. [**The Frontend Documentation Suite:** A Definitive Guide](./13-the-frontend-documentation-suite.md)
 14. [**Spec-Driven Development:** The Ultimate Discipline](./14-spec-driven-development.md)
-15. [**The Anatomy of a Spec:** The Architect's Executable Contract](./15-the-anatomy-of-a-spec.md)
+15. [**The Anatomy of a Spec:** An Executable Contract](./15-the-anatomy-of-a-spec.md)
+16. [**Conclusion:** From Theory to Practice](./16-conclusion-from-theory-to-practice.md)

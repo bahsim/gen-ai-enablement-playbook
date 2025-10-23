@@ -59,6 +59,15 @@ A disciplined developer creates a clear implementation plan *first*, then uses t
 
 This methodical approach is superior because each step provides the AI with a small, clean, and highly-focused context. It respects the context window, eliminates ambiguity, and transforms the interaction from a hopeful gamble into a predictable and professional engineering workflow.
 
+### The "Skeletons First" Technique: Decomposition in Practice
+
+A powerful, practical technique for applying structured decomposition is to separate the *design* phase from the *implementation* phase.
+
+1.  **The Design Pass:** First, use the full context window to generate only the high-level "skeletons" of the required code. This includes class definitions, method signatures, property names, type definitions, and detailed docstrings explaining the purpose of each element. This pass focuses the AI on the architectural structure without getting lost in implementation details.
+2.  **The Implementation Pass:** Once the high-quality skeletons are created and verified, you can proceed with a series of smaller, more focused requests to implement each method or function one by one. The skeleton itself now serves as the primary, high-signal context for each of these subsequent tasks.
+
+This technique ensures that the AI's limited context is used most effectively—first for high-level architectural design, and then for focused, low-level code generation.
+
 ### The Unseen Benefit: Incremental, Verifiable Changes
 
 Beyond improving the quality of the AI's output, this decompositional approach provides a profound benefit for the developer's own workflow: it enforces a pattern of small, incremental, and easily verifiable changes.

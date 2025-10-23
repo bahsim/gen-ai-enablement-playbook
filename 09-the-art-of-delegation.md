@@ -14,6 +14,17 @@ The acceleration we gain is real, but its source is crucial to understand. The b
 
 Engaging with an AI is not a conversation; it is an act of programming, but at a higher level of abstraction. The developer's role shifts from writing code line-by-line to architecting the inputs (the context and the prompt) that will guide this powerful tool to generate the correct code.
 
+### A Practical Mental Model: The High-Performing Intern
+
+Perhaps the most effective mental model for a GenAI assistant comes from a common industry experience: managing a smart, diligent, but inexperienced graduate-level intern.
+
+Consider the parallels:
+*   **Highly Capable but Lacking Context:** The intern is fresh out of school with a deep knowledge of algorithms, data structures, and modern technologies. They are eager to impress but have zero knowledge of your project's specific architecture, business goals, or unwritten conventions.
+*   **Prone to Over-Engineering:** Without clear constraints, they will often build overly complex solutions for simple problems, applying the most advanced patterns they know to tasks that don't require them.
+*   **Requires Explicit Instruction:** To get a high-quality, predictable result from this intern, you cannot simply say, "build me a login feature." You must provide them with a clear definition of the task, the "rules of the road" for your codebase, and a precise description of what "done" looks like.
+
+The AI assistant is this high-performing intern. It is a powerful force multiplier, but only when guided by a structured workflow and a well-defined `Spec`. Treating it as such transforms the interaction from a frustrating gamble into a predictable act of professional delegation.
+
 ## The Briefing Document: Architecting the Inputs
 
 The practical application of our entire methodology — from Context Engineering to Structured Decomposition — can be understood as a single, disciplined act: the preparation of a **Briefing Document** for the AI.

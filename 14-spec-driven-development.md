@@ -35,3 +35,17 @@ Adopting this ultimate discipline solves many of the most persistent problems in
 *   **It Creates a Predictable, High-Velocity Workflow:** The process becomes a reliable assembly line for producing high-quality features, moving from spec to code to validation with minimal friction.
 
 This is the pinnacle of AI-assisted development. It is a disciplined partnership where the human provides the strategic intent (by crafting the spec) and the AI provides the tactical execution, creating a powerful synergy that drives both speed and quality.
+
+This is a professional practice. It is a repeatable, verifiable, and scalable workflow that transforms development from a chaotic art into a disciplined engineering practice. It is the ultimate expression of the principles of this playbook, ensuring that the developer remains in absolute control of the process, using the AI as a powerful and reliable tool to execute a well-defined plan.
+
+### The Consequence of Failure: The Inevitability of "Drift"
+
+What happens when this discipline is not followed? Over time, small, undocumented changes and manual overrides accumulate. The living documentation (the source of context) and the production code (the ground truth) slowly diverge.
+
+This phenomenon is known as **"drift."**
+
+As drift accumulates, the machine-readable documentation becomes an increasingly inaccurate representation of the system. The context fed to the AI becomes polluted. As a result, the quality of the AI's output will begin to drop, seemingly without reason. After a dozen features, a development team might find that the AI "just isn't working as well as it used to."
+
+The cause is not a failure of the AI, but a failure of the team's discipline.
+
+Spec-Driven Development is the ultimate defense against drift. By treating the `Spec` as the single source of truth that must be updated *before* the code, it creates a virtuous cycle where the documentation is always a perfect, high-fidelity reflection of the system. It is a proactive discipline that prevents the slow decay of context, ensuring that the AI remains a consistently effective partner for the long term.
