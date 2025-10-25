@@ -72,3 +72,14 @@ Conversely, a poorly-written spec is defined by its anti-patterns:
 </details>
 
 This is the pinnacle of AI-assisted development: a disciplined partnership where the human provides the strategic intent (by crafting the spec) and the AI provides the tactical execution, creating a powerful synergy that drives both speed and quality.
+
+---
+### **Part 3: An Advanced Workflow for Complex Tasks**
+
+For complex, medium-to-large tasks, the most professional and reliable workflow is to formalize the act of decomposition. Instead of holding the plan in your head, you create a dedicated, written specification file. This is a powerful, iterative process:
+
+1.  **Generate the Specification:** First, ask the AI to generate a detailed, step-by-step implementation plan for the entire feature and save it to a markdown file (e.g., `feature-x.spec.md`). This plan should include file names, class/function signatures, and a checklist of actions.
+2.  **Review and Refine the Specification:** As the human expert, you now review this generated plan. You correct any architectural mistakes, refine the approach, and add any missing details. This is the critical step where you exert your architectural control.
+3.  **Execute the Specification:** Finally, you instruct the AI to execute the *corrected* specification file. The spec itself has become the perfect, high-quality context and task definition for the implementation.
+
+This "Develop by Specification" workflow is the ultimate expression of the playbook's philosophy. It uses the AI for what it's good at (generating detailed, structured text) and the human for what they are best at (strategic review and architectural decision-making), creating a powerful and controlled partnership.
