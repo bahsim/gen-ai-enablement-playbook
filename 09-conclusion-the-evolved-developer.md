@@ -12,9 +12,9 @@ This playbook provides the path. The destination is the evolved skillset of the 
 
 ### **Your Evolved Skillset: A Universal Standard**
 
-Adopting this disciplined, engineering-first approach fundamentally evolves your personal skillset. This is not a backend or frontend-specific evolution; it is a universal shift from being a line-by-line implementer to a high-level system designer, regardless of your domain.
+Adopting this disciplined, engineering-first approach creates a fundamental shift in the developer's role. **The border between Coder and Architect blurs.** The line-by-line implementer evolves into a quasi-architect—someone who must possess the high-level system view to effectively design, delegate, and validate AI-assisted work. This is a universal evolution, independent of domain.
 
-Your new skillset will be defined by two core pillars:
+Your new skillset is the definition of this new, hybrid role, and it is defined by two core pillars:
 
 <details>
 <summary><b>System Design Mastery</b></summary>
