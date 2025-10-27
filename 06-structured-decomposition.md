@@ -11,45 +11,51 @@ The solution is not a novel AI trick, but a return to a foundational principle o
 
 ---
 
-### **The Solution: Sequential, Single-Context Tasks**
+### **The Solution: Decomposing by Architectural Slices**
 
-To successfully manage context, we must break down a given task into a sequence of architecturally distinct steps *before* engaging the AI. We create a plan where each step is focused on a single subsystem, with its own clean, minimal, and highly relevant context.
+To successfully manage context, we must break down a given task into a sequence of architecturally distinct steps *before* engaging the AI. The "Architectural Slices" we discovered in Chapter 4 provide the perfect blueprint for this decomposition. We create a plan where each step is focused on a single slice, with its own clean, minimal, and highly relevant context.
 
 <details>
-<summary><b>Example: A Step-by-Step UI Transformation</b></summary>
+<summary><b>Example: A Slice-Based UI Transformation</b></summary>
 
 Let's take a common task: **implementing a UI transformation**.
 
 **The Feature Request:** "When a user clicks the 'Add to Cart' button, it should be disabled, show a spinner, and change its text to 'Added!' upon success."
 
-This single request touches three distinct architectural layers: the Presentation Layer (visuals), the State Management Layer (tracking `isLoading`), and the Data-Fetching Layer (the API call).
+A professional developer immediately recognizes that this single request touches three distinct **Architectural Slices**:
+
+1.  **The `UI & Components` Slice:** The button's visual appearance must change.
+2.  **The `State & Data Flow` Slice:** The application needs to track the `isLoading` status.
+3.  **The `Integration & Extensibility` Slice:** An asynchronous API call must be made.
+
+This slice-based analysis directly informs the implementation plan.
 
 #### The Anti-Pattern: The Mixed-Context Prompt
 
 A developer trying to solve this in one shot might provide the AI with the component file, the CSS file, and the API service file, and write a single, complex prompt mixing all three concerns. This is likely to fail because the context is too broad and complex.
 
-#### The Disciplined Approach: Structured Decomposition in Practice
+#### The Disciplined Approach: A Slice-Based Implementation Plan
 
-A disciplined developer creates a clear implementation plan *first*, then uses the AI as a partner for each distinct step.
+A disciplined developer creates a clear, slice-based implementation plan *first*, then uses the AI as a partner for each distinct step.
 
 **The Plan:**
-1.  Update the component's visual presentation to support a loading state.
-2.  Add the necessary state management to track the loading status.
-3.  Integrate the asynchronous API call, tying it to the state.
+1.  **(`UI & Components` Slice):** Update the component's visual presentation to support a loading state.
+2.  **(`State & Data Flow` Slice):** Add the necessary state management to track the loading status.
+3.  **(`Integration & Extensibility` Slice):** Integrate the asynchronous API call, tying it to the state.
 
-**Step 1: The Presentation Layer**
+**Step 1: The `UI & Components` Slice**
 *   **Context Provided:** Only the component's JSX for the button and the relevant CSS file.
 *   **Prompt:** "Modify this button. It needs to accept a new boolean prop called `isLoading`. If `isLoading` is true, the button should be disabled and display a spinner icon..."
 
-**Step 2: The State Management Layer**
+**Step 2: The `State & Data Flow` Slice**
 *   **Context Provided:** The component's existing state hooks and the (empty) `handleAddToCart` function.
 *   **Prompt:** "Add a new state variable called `isLoading`, initialized to `false`. When `handleAddToCart` is called, it should first set `isLoading` to `true`."
 
-**Step 3: The Data-Fetching Layer**
+**Step 3: The `Integration & Extensibility` Slice**
 *   **Context Provided:** The `handleAddToCart` function and the relevant `CartService.ts` file.
 *   **Prompt:** "In `handleAddToCart`, after setting `isLoading` to true, call the `cartService.addProduct` method. In a `finally` block, set `isLoading` back to `false`."
 
-This methodical approach is superior because each step provides the AI with a small, clean, and highly-focused context. It respects the context window and transforms the interaction from a gamble into a predictable engineering workflow.
+This methodical, slice-aware approach is superior because each step provides the AI with a small, clean, and highly-focused context. It respects the context window and transforms the interaction from a gamble into a predictable engineering workflow.
 
 </details>
 

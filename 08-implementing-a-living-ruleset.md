@@ -62,6 +62,11 @@ This technique applies the principles of **Information Density** and **Structure
     ```
 By *showing* the AI a perfect, information-dense example, you ensure a far more consistent and high-quality result than by *telling* it what to do.
 
+#### **Technique 3: Centralizing Specs for Scalability**
+This is an architectural best practice for organizing your specs. While co-locating a spec with the document it generates may seem intuitive, this one-to-one pattern is too simplistic for real-world projects. A more robust and scalable approach is to centralize all specs in a dedicated `specs/` directory.
+
+This architecture is superior because it correctly treats the specs as the "source code" for your documentation and the `.md` files as the "build artifacts." This clean separation of concerns is the only model that can handle complex scenarios, such as a single spec generating multiple documents (one-to-many) or a single document being assembled from multiple specs (many-to-one).
+
 ---
 
 ### **Part 3: The Scientific Method: Evolving Your Ruleset**
