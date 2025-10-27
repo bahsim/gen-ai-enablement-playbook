@@ -1,0 +1,330 @@
+# AI-Optimized Component Metadata
+# Machine-readable component information for AI processing
+
+components:
+  CheckoutApp:
+    type: "React Class Component"
+    file: "CheckoutApp.tsx"
+    description: "Main application wrapper that provides checkout context and error handling"
+    props:
+      checkoutId:
+        type: "string"
+        required: true
+        description: "Your checkout ID"
+      containerId:
+        type: "string"
+        required: true
+        description: "DOM container ID"
+      publicPath:
+        type: "string"
+        required: false
+        description: "Public asset path"
+      sentryConfig:
+        type: "BrowserOptions"
+        required: false
+        description: "Error tracking configuration"
+      sentrySampleRate:
+        type: "number"
+        required: false
+        description: "Error sampling rate"
+    state: []
+    lifecycle:
+      - "componentDidMount"
+      - "render"
+    dependencies:
+      - "ErrorBoundary"
+      - "LocaleProvider"
+      - "CheckoutProvider"
+      - "AnalyticsProvider"
+      - "ExtensionProvider"
+      - "StyleProvider"
+      - "Checkout"
+    provides:
+      - "checkout_context"
+      - "error_handling"
+      - "analytics"
+      - "localization"
+    consumes:
+      - "checkout_service"
+      - "sentry_config"
+      - "language_service"
+    children:
+      - "Checkout"
+
+  CheckoutStep:
+    type: "React Class Component"
+    file: "CheckoutStep.tsx"
+    description: "Individual step management with animation and focus handling"
+    props:
+      children:
+        type: "ReactNode"
+        required: false
+        description: "Step content"
+      heading:
+        type: "ReactNode"
+        required: false
+        description: "Step heading"
+      isActive:
+        type: "boolean"
+        required: false
+        description: "Whether step is currently active"
+      isBusy:
+        type: "boolean"
+        required: true
+        description: "Whether step is in a busy/loading state"
+      isComplete:
+        type: "boolean"
+        required: false
+        description: "Whether step is completed"
+      isEditable:
+        type: "boolean"
+        required: false
+        description: "Whether step can be edited"
+      suggestion:
+        type: "ReactNode"
+        required: false
+        description: "Step suggestion"
+      summary:
+        type: "ReactNode"
+        required: false
+        description: "Step summary"
+      type:
+        type: "CheckoutStepType"
+        required: true
+        description: "Type of the step"
+      onExpanded:
+        type: "(step: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is expanded"
+      onEdit:
+        type: "(step: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is edited"
+    state:
+      isClosed:
+        type: "boolean"
+        description: "Controls animation states and content visibility"
+    lifecycle:
+      - "componentDidMount"
+      - "componentDidUpdate"
+      - "componentWillUnmount"
+    dependencies:
+      - "CheckoutStepHeader"
+      - "CSSTransition"
+      - "MobileView"
+      - "classNames"
+    provides:
+      - "step_management"
+      - "animation"
+      - "focus_management"
+    consumes:
+      - "checkout_context"
+      - "step_status"
+    children:
+      - "CheckoutStepHeader"
+      - "StepContent"
+
+  CheckoutStepHeader:
+    type: "React Function Component"
+    file: "CheckoutStepHeader.tsx"
+    description: "Step navigation controls and user interaction"
+    props:
+      heading:
+        type: "ReactNode"
+        required: true
+        description: "Step heading"
+      isActive:
+        type: "boolean"
+        required: false
+        description: "Whether step is currently active"
+      isComplete:
+        type: "boolean"
+        required: false
+        description: "Whether step is completed"
+      isEditable:
+        type: "boolean"
+        required: false
+        description: "Whether step can be edited"
+      summary:
+        type: "ReactNode"
+        required: false
+        description: "Step summary"
+      type:
+        type: "CheckoutStepType"
+        required: true
+        description: "Type of the step"
+      onEdit:
+        type: "(type: CheckoutStepType) => void"
+        required: false
+        description: "Callback when step is edited"
+    state: []
+    lifecycle: []
+    dependencies:
+      - "Button"
+      - "IconCheck"
+      - "TranslatedString"
+      - "classNames"
+    provides:
+      - "step_navigation"
+      - "user_interaction"
+    consumes:
+      - "step_props"
+      - "edit_callbacks"
+    children: []
+
+  CheckoutSuggestion:
+    type: "React Function Component"
+    file: "CheckoutSuggestion.tsx"
+    description: "Payment method suggestions and custom checkout integration"
+    props:
+      onUnhandledError:
+        type: "(error: Error) => void"
+        required: false
+        description: "Error handling callback"
+    state: []
+    lifecycle: []
+    dependencies:
+      - "BoltCheckoutSuggestion"
+      - "useAnalytics"
+      - "withCheckout"
+    provides:
+      - "payment_suggestions"
+      - "custom_checkout"
+    consumes:
+      - "checkout_context"
+      - "analytics"
+    children:
+      - "BoltCheckoutSuggestion"
+
+  CheckoutSupport:
+    type: "Interface"
+    file: "CheckoutSupport.ts"
+    description: "Feature support checking interface"
+    methods:
+      isSupported:
+        parameters: ["...ids: string[]"]
+        return: "boolean"
+        description: "Check if features are supported"
+    provides:
+      - "feature_support"
+    consumes: []
+
+  NoopCheckoutSupport:
+    type: "Class"
+    file: "NoopCheckoutSupport.ts"
+    description: "No-op implementation of CheckoutSupport"
+    implements: ["CheckoutSupport"]
+    methods:
+      isSupported:
+        parameters: []
+        return: "boolean"
+        description: "Always returns true"
+    provides:
+      - "feature_support"
+    consumes: []
+
+# Step Types
+step_types:
+  CheckoutStepType:
+    type: "Enum"
+    values:
+      Billing: "billing"
+      Customer: "customer"
+      Payment: "payment"
+      Shipping: "shipping"
+      OrderDetails: "order-details"
+      BillingAndPayment: "billing-and-payment"
+
+  CheckoutStepStatus:
+    type: "Interface"
+    properties:
+      isActive:
+        type: "boolean"
+        description: "Whether the step is currently active"
+      isBusy:
+        type: "boolean"
+        description: "Whether the step is in a busy/loading state"
+      isComplete:
+        type: "boolean"
+        description: "Whether the step is completed"
+      isEditable:
+        type: "boolean"
+        description: "Whether the step can be edited"
+      isRequired:
+        type: "boolean"
+        description: "Whether the step is required"
+      type:
+        type: "CheckoutStepType"
+        description: "The type of the step"
+
+# Hooks and Utilities
+hooks:
+  useAnalytics:
+    type: "Hook"
+    description: "Analytics tracking hook"
+    returns:
+      analyticsTracker:
+        type: "AnalyticsTracker"
+        description: "Analytics tracker instance"
+    provides:
+      - "analytics_tracking"
+    consumes:
+      - "analytics_context"
+
+  withCheckout:
+    type: "HOC"
+    description: "Higher-Order Component for checkout context injection"
+    parameters:
+      mapToCheckoutProps:
+        type: "function"
+        description: "Function to map checkout state to props"
+    returns:
+      type: "Component"
+      description: "Enhanced component with checkout props"
+    provides:
+      - "checkout_context"
+    consumes:
+      - "checkout_service"
+      - "checkout_state"
+
+# State Management
+state_management:
+  CheckoutState:
+    type: "Interface"
+    properties:
+      data:
+        type: "object"
+        properties:
+          getCheckout: "() => Checkout | undefined"
+          getCustomer: "() => Customer | undefined"
+          getBillingAddress: "() => Address | undefined"
+          getShippingAddress: "() => Address | undefined"
+          getConsignments: "() => Consignment[] | undefined"
+          getCart: "() => Cart | undefined"
+          getConfig: "() => Config | undefined"
+          getOrder: "() => Order | undefined"
+      statuses:
+        type: "object"
+        properties:
+          isLoadingCheckout: "() => boolean"
+          isPending: "() => boolean"
+          isSubmittingOrder: "() => boolean"
+      errors:
+        type: "object"
+        properties:
+          getSubmitOrderError: "() => Error | undefined"
+
+  getCheckoutStepStatuses:
+    type: "Selector"
+    description: "Calculate step statuses based on checkout state"
+    parameters:
+      - "CheckoutSelectors"
+    returns:
+      type: "CheckoutStepStatus[]"
+      description: "Array of step statuses"
+    dependencies:
+      - "getCustomerStepStatus"
+      - "getShippingStepStatus"
+      - "getBillingStepStatus"
+      - "getPaymentStepStatus"
+      - "getOrderSubmitStatus"
