@@ -34,6 +34,7 @@ The successful execution of this spec will result in the following folder and fi
 
 *   **`00-overview/`**: The "map of maps" and mandatory starting point for all developers.
     *   `01-architectural-overview.md`: The high-level summary of the system, its purpose, and a guide to the other documentation domains.
+    *   `02-glossary-of-terms.md`: The definitive glossary for all technical terms, architectural concepts, and project-specific acronyms.
 *   **`01-application-architecture/`**: The "Code" Perspective. Describes the internal architecture of the application itself.
     *   `01-module-breakdown.md`: A detailed inventory and explanation of the application's feature modules.
     *   `02-state-management-guide.md`: A deep-dive guide to the layered state management strategy and data flow patterns.

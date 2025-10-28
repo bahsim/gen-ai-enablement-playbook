@@ -19,8 +19,49 @@ This project is built on a modern frontend stack. The key technologies and their
 *   **TypeScript:** Used for all application code to ensure type safety and improve developer experience.
 *   **SCSS:** The CSS preprocessor used for all styling, enabling a consistent and themeable design system.
 *   **BigCommerce Checkout SDK:** The primary tool for state management, providing all necessary data and actions related to the checkout process.
-*   **Formik:** The library used for managing all form state, including user input, validation, and submission.
+*   **Formik & Yup:** The libraries used for managing all form state and schema-based validation.
 *   **Jest & React Testing Library:** The framework and utilities for all unit and component testing.
+
+## The Five Architectural Domains (The Architect's View)
+
+While the slices provide a concrete, "bottom-up" developer's view of the system's components, the architecture is also governed by five high-level **Architectural Domains**. These domains provide a "top-down" architect's view, grouping the slices into strategic areas of concern. Understanding both perspectives is key to mastering this codebase.
+
+```mermaid
+graph TD
+    subgraph "Architectural Domains"
+        A[Application Architecture]
+        B[Data Flow & State Management]
+        C[Integration Architecture]
+        D[Quality Architecture]
+        E[Delivery Architecture]
+    end
+```
+
+<details>
+<summary><b>Mapping Slices to Domains</b></summary>
+
+*   **1. Application Architecture Domain:** Governs the internal structure of the UI and its logic.
+    *   `UI & Component System Slice`
+    *   `Forms & Validation Slice`
+    *   `Step-Based View Management Slice`
+    *   `Styling & Theming Slice`
+    *   `Internationalization (I18n) Slice`
+*   **2. Data Flow & State Management Domain:** Governs the lifecycle of data and state.
+    *   `State Management Slice`
+    *   `Context & Dependency Injection Slice`
+*   **3. Integration Architecture Domain:** Governs communication with the outside world.
+    *   `Integration & Extensibility Slice`
+    *   `Analytics Slice`
+    *   `Embedded Checkout Slice`
+*   **4. Quality Architecture Domain:** Governs the resilience, performance, and security of the system.
+    *   `Error Handling Slice`
+    *   `Testing Slice`
+    *   `Asynchronous Loading & Code-Splitting Slice` (Performance)
+*   **5. Delivery Architecture Domain:** Governs how the application is built and deployed.
+    *   `Monorepo & Tooling Slice`
+    *   `Build & Bundling Slice`
+
+</details>
 
 ## Architectural Philosophy
 
@@ -64,14 +105,11 @@ The application's primary function is to guide a user through the checkout proce
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant React UI
-    participant Checkout SDK
-
-    User->>React UI: Interacts (e.g., enters address)
-    React UI->>Checkout SDK: Dispatches Action (e.g., updateAddress)
-    Checkout SDK-->>React UI: Returns updated State
-    Note right of React UI: React re-renders with new state
+    Component->>SDK: Dispatches Action (e.g., updateAddress)
+    SDK->>API: API Request
+    API-->>SDK: API Response
+    SDK-->>Component: Returns updated State via subscription
+    note right of Component: React re-renders with new state
 ```
 
 ### System Dynamics & Extensibility
