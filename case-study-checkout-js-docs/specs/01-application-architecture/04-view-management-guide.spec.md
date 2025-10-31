@@ -1,14 +1,23 @@
-# Spec: View Management Guide
+---
+spec_version: 2
+spec_id: checkout-js-view-management-guide
+title: Spec: View Management Guide
+description: To define the structure and content for the guide to the View Management slice.
+objective: To generate a comprehensive "wiring diagram" that documents the View Management slice, a hybrid Cross-Cutting Concern responsible for orchestrating the user journey.
+---
 
-## 1. Objective
+### 1. Architectural Principles
 
-To analyze the `C:\learn\checkout-js` project and generate the complete content for the **`01-application-architecture/04-view-management-guide.md`** document.
+The documentation for the View Management slice **must** be framed by the following core principles:
 
-## 2. Rationale
+*   **Principle of the Orchestration Slice:** View Management is a specialized, hybrid **Cross-Cutting Concern**. While it is a global slice that affects the entire application, its logic is tightly coupled to the business domain (the linear steps of a checkout). Its primary role is to **orchestrate** the user's journey through the various vertical feature slices.
+*   **Principle of State-Driven Control:** The user's position in the flow is not managed by the components themselves. It is controlled exclusively by the global `CheckoutState`. This decouples the feature components from the overall application flow, allowing them to focus on their specific responsibilities.
 
-The checkout is a linear, multi-step journey for the user. It is critical for developers to understand the state-driven mechanism that controls this journey, determining which "view" or "step" is currently active.
+### 2. Rationale
 
-## 3. Verification Criteria
+The checkout is a linear, multi-step journey. This guide is crucial for documenting how this "Orchestration Slice" is architected to provide a predictable, state-driven mechanism for controlling the user's journey and determining which "view" or "step" is currently active.
+
+### 3. Verification Criteria
 
 The successful execution of this spec will result in the `01-application-architecture/04-view-management-guide.md` file being populated with the following:
 

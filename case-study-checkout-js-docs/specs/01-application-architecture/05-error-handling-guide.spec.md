@@ -1,31 +1,35 @@
-# Spec: Error Handling Guide
+---
+spec_version: 2
+spec_id: checkout-js-error-handling-guide
+title: Error Handling Guide Spec
+description: This document is an executable contract for generating the Error Handling Guide.
+objective: To create a comprehensive "wiring diagram" that documents the Error Handling & Logging Cross-Cutting Concern (CCC) as a governed, horizontal architectural slice.
+---
 
-## 1. Objective
+### **1. Architectural Principles**
 
-To analyze the `C:\learn\checkout-js` project and its legacy documentation to generate the complete content for the **`01-application-architecture/05-error-handling-guide.md`** document.
+The documentation for the Error Handling slice **must** be framed by the following core principles, derived from modern architectural best practices for managing Cross-Cutting Concerns (CCCs):
 
-## 2. Rationale
+*   **Principle of Decoupling:** The primary goal of this slice is to decouple error handling logic from core business logic. This is done to prevent **tangling**, where error management code obscures the primary purpose of a feature component.
+*   **Principle of Centralization:** The slice must be implemented as a **governed, horizontal system** that avoids the **scattering** of error handling logic across the codebase. Implementation patterns should favor global interceptors and centralized services over repeated `try...catch` blocks in feature components.
 
-A robust error handling strategy is essential for a production-grade application. This guide must provide developers with a clear, practical understanding of the project's centralized system for catching, logging, displaying, and recovering from errors.
+### **2. Rationale**
 
-## 3. Verification Criteria
+**For the Business:** A robust error handling strategy is critical for application stability and user trust. When errors occur, they must be handled gracefully to prevent crashes and provide clear feedback to the user, which protects the customer experience and the brand's reputation.
 
-The successful execution of this spec will result in the `01-application-architecture/05-error-handling-guide.md` file being populated with the following sections:
+**For the Architect:** This document will formally codify the patterns for handling both synchronous (rendering) and asynchronous (network) errors. It serves as a "wiring diagram" for the error handling slice, ensuring developers implement this critical CCC consistently, preventing system fragility.
 
-1.  **The Error Handling Stack:**
-    *   Must describe the key components of the error handling system and their packages:
-        *   **`<ErrorBoundary>`** (`packages/error-handling-utils`): The top-level React component for catching rendering errors.
-        *   **`ErrorLogger`** (`packages/error-handling-utils`): The centralized service for reporting errors to external systems (like Sentry).
-        *   **`<ErrorModal>`** (`packages/core`): The UI component for displaying user-friendly error messages.
+### **3. Verification Criteria**
 
-2.  **Custom Error Types:**
-    *   Must explain the purpose of using custom error classes.
-    *   Must describe the primary custom error types, such as `RequestError` (for API failures) and `CartChangedError` (for stale data conflicts).
+The generated document, `05-error-handling-guide.md`, **must** meet the following criteria:
 
-3.  **Standard Implementation Pattern:**
-    *   Must provide a practical code example of the standard `try...catch` pattern for handling errors within asynchronous logic (e.g., form submission).
-    *   The example must show how to catch an error and report it to the `ErrorLogger` service.
-
-4.  **Error Recovery:**
-    *   Must explain the concept of error recovery in the context of the checkout.
-    *   Must describe how `CartChangedError` is used to trigger a page reload to recover from a stale checkout state.
+*   **Must include a high-level Mermaid sequence diagram** that illustrates the two primary error handling flows: one for asynchronous errors caught within a component, and one for synchronous rendering errors caught by a top-level boundary.
+*   **Must provide a detailed breakdown of the diagram's flow**, explaining each step in both the asynchronous and synchronous error paths.
+*   **Must define the key components of the error handling system**, explaining how they work together as a cohesive, decoupled slice:
+    *   **`<ErrorBoundary>`** (`packages/error-handling-utils`): The top-level React component that acts as a **global interceptor** for rendering errors.
+    *   **`ErrorLogger`** (`packages/error-handling-utils`): The **centralized service** for reporting all errors to external systems (like Sentry).
+*   **Must provide a "Developer Cookbook" section** with a practical code example for handling asynchronous errors.
+    *   The example must show how to use a `try...catch` block to gracefully handle a failed action.
+    *   The example must show how to report the error to the centralized `ErrorLogger` service.
+    *   The example must show how to display a user-friendly error message.
+*   **Must describe the primary custom error types**, such as `RequestError` (for API failures) and `CartChangedError` (for stale data conflicts), explaining how they enable more specific error handling.

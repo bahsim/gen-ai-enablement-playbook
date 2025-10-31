@@ -12,14 +12,18 @@ This playbook guides developers from basic GenAI interaction to a sophisticated,
 *   [**3. The High-Level View: The Foundation of Effective Delegation**](./03-the-high-level-view.md)
 
 ### **Part 2: The Engineering Solution**
-*   [**4. The Living Documentation Standard**](./04-the-living-documentation-standard.md)
-*   [**5. The Role-Based Onboarding Blueprint**](./05-the-onboarding-blueprint.md)
-*   [**6. Structured Decomposition: The Key to Context Management**](./06-structured-decomposition.md)
+*   [**4. Architectural Foundations of Slicing**](./04-architectural-foundations-of-slicing.md)
+*   [**5. The Living Documentation Standard**](./05-the-living-documentation-standard.md)
+*   [**6. The Onboarding Blueprint**](./06-the-onboarding-blueprint.md)
+*   [**7. Structured Decomposition**](./07-structured-decomposition.md)
 
 ### **Part 3: The Professional Workflow**
-*   [**7. Spec-Driven Development: The Ultimate Discipline**](./07-spec-driven-development.md)
-*   [**8. Implementing a Living Ruleset: From Art to Science**](./08-implementing-a-living-ruleset.md)
+*   [**8. Spec-Driven Development**](./08-spec-driven-development.md)
+*   [**9. Implementing a Living Ruleset**](./09-implementing-a-living-ruleset.md)
 
 ### **Part 4: The Evolved Developer**
-*   [**9. Conclusion: The Evolved Developer**](./09-conclusion-the-evolved-developer.md)
-*   [**10. A Real-World Case Study: The Playbook in Action**](./10-a-real-world-case-study.md)
+*   [**10. Conclusion: The Evolved Developer**](./10-conclusion-the-evolved-developer.md)
+*   [**11. A Real-World Case Study**](./11-a-real-world-case-study.md)
+
+---
+

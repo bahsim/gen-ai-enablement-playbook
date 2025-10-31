@@ -1,115 +1,95 @@
 ---
-**Title:** Error Handling Guide
-**Purpose:** A guide to the application's centralized error handling and logging system.
+**Title:** The Error Handling Guide
+**Purpose:** The "wiring diagram" for the Error Handling & Logging Cross-Cutting Concern (CCC), a governed, horizontal architectural slice.
 **Audience:** All Developers
-**Maintenance:** Update when error handling patterns or components change.
+**Maintenance:** Update if the core error handling patterns or custom error types change.
 ---
 
-# Error Handling Guide
+# The Error Handling Guide
 
-This document is the "Level 2" deep-dive into the Error Handling slice. It provides the complete "wiring diagram" for the application's centralized, multi-layered strategy for catching, logging, displaying, and recovering from errors.
+This document is the "wiring diagram" for the **Error Handling & Logging slice**. This is a **governed horizontal slice** responsible for managing both synchronous (rendering) and asynchronous (network) errors in a consistent, decoupled, and centralized way.
 
-## 1. The Architectural Philosophy: Defense in Depth
+## 1. Architectural Principles
 
-The error handling strategy is built on the principle of "Defense in Depth." No single mechanism is responsible for all errors. Instead, a series of layers work together to ensure that different types of errors are caught and handled at the appropriate level, providing a resilient and user-friendly experience.
+This slice is architected according to two core principles for managing Cross-Cutting Concerns (CCCs):
 
-## 2. The Full Lifecycle: The "Wiring Diagram"
+*   **Decoupling:** The primary goal is to decouple error handling logic from core business logic to prevent **tangling**, where error management code obscures the primary purpose of a feature component.
+*   **Centralization:** The slice is implemented as a governed, horizontal system that avoids the **scattering** of error handling logic. It favors **global interceptors** (`<ErrorBoundary>`) and **centralized services** (`ErrorLogger`) over repeated, inconsistent `try...catch` blocks.
 
-The following diagram illustrates the two primary error handling flows: one for asynchronous errors (like API failures) caught within a component, and one for synchronous rendering errors caught by a top-level boundary.
+## 2. The Two Primary Error Flows
+
+The application has two distinct flows for handling errors, which are visualized in the diagram below.
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Component as Component (e.g., Payment.tsx)
-    participant ErrorLogger as ErrorLogger Service
-    participant ErrorBoundary as ErrorBoundary.tsx
-    participant UI
+    participant Component
+    participant ErrorLogger as ErrorLoggerService
+    participant ErrorModal as ErrorModalUI
+    participant AnyChild as AnyChildComponent
+    participant ErrorBoundary as ErrorBoundaryInterceptor
 
-    Note over User, UI: Flow 1: Asynchronous Error
-    User->>Component: Triggers action (e.g., Submit Payment)
-    Component->>SDK: Dispatches action
-    SDK-->>Component: Throws RequestError
-    
-    activate Component
-    Component->>Component: Catches error in `try...catch` block
+    Note right of Component: Flow 1: Asynchronous Error
+    Note over Component: Tries async action (e.g., API call),<br/>it fails, and the error is caught internally.
     Component->>ErrorLogger: `errorLogger.log(error)`
-    Component->>UI: Displays `<ErrorModal>`
-    deactivate Component
+    Component->>ErrorModal: Displays user-friendly message
     
-    Note over User, UI: Flow 2: Rendering Error
-    User->>UI: Navigates to a page with a buggy component
-    
-    activate ErrorBoundary
-    UI->>ErrorBoundary: Buggy component throws rendering error
-    ErrorBoundary->>ErrorBoundary: `componentDidCatch(error)`
+    Note right of Component: Flow 2: Synchronous Error
+    Note over AnyChild: Fails during render().<br/>React propagates the error upwards.
+    Note over ErrorBoundary: Catches error via `getDerivedStateFromError()`
     ErrorBoundary->>ErrorLogger: `errorLogger.log(error)`
-    ErrorBoundary-->>UI: Renders fallback UI
-    deactivate ErrorBoundary
+    ErrorBoundary->>AnyChild: Renders a generic fallback UI
 ```
 
-## 3. The Error Handling Stack
-
-### 3.1. Layer 1: The `<ErrorBoundary>`
-
-The `<ErrorBoundary>` (`packages/error-handling-utils`) is the highest level of defense. It is a React component that wraps the entire application and is responsible for catching any synchronous rendering errors that occur in its child component tree.
-
-*   **Responsibility:** Prevents a white screen of death by catching critical UI errors.
-*   **Action:** Logs the error via the `ErrorLogger` and renders a generic, fallback UI so the user can still attempt to recover (e.g., by reloading the page).
-
-**Implementation (`CheckoutApp.tsx`):**
-```typescript
-// In CheckoutApp.tsx
-<ErrorBoundary
-    errorLogger={this.errorLogger}
-    fallbackComponent={ErrorFallback}
->
-    <CheckoutProvider checkoutService={this.checkoutService}>
-        {/* ... rest of the application ... */}
-    </CheckoutProvider>
-</ErrorBoundary>
-```
-
-### 3.2. Layer 2: Component-Level `try...catch`
+### Flow 1: Asynchronous Errors (e.g., API Failures)
 
 For asynchronous operations (like API calls), the standard pattern is a `try...catch` block within the component or hook that initiates the operation. This is the most common and immediate line of defense.
-
-*   **Responsibility:** Catches predictable failures from external interactions.
 *   **Action:** Logs the error via the `ErrorLogger` and typically displays a user-friendly `<ErrorModal>` with a specific, helpful message.
 
-**Implementation (`Payment.tsx`):**
-```typescript
-// In Payment.tsx
-const handleSubmit = useCallback(async (values: PaymentFormValues) => {
-    try {
-        await submitOrder(mapToOrderRequestBody(values, isPaymentDataRequired()));
-        // ...
-    } catch (error) {
-        // Log the error for developers
-        errorLogger.log(error);
+### Flow 2: Synchronous Errors (e.g., Rendering)
 
-        // Display a modal for the user
-        setSubmissionError(error);
-    }
-}, [/*...*/]);
+For synchronous errors that happen during a React render cycle, the application is protected by a single, top-level `<ErrorBoundary>`.
+*   **Action:** Logs the error via the `ErrorLogger` and renders a generic, fallback UI so the user can still attempt to recover (e.g., by reloading the page).
+
+## 3. Key Components of the Slice
+
+The Error Handling slice is composed of two key components that work together as a cohesive, decoupled system:
+
+*   **`<ErrorBoundary>` (`packages/error-handling-utils`):** This top-level React component acts as a **global interceptor** for any rendering errors that occur in the component tree below it. It prevents the entire application from crashing due to a UI error.
+
+*   **`ErrorLogger` (`packages/error-handling-utils`):** This is the **centralized service** for reporting errors to external monitoring systems (like Sentry). Both the `<ErrorBoundary>` and component-level `catch` blocks use this service. This ensures that all errors, regardless of where they are caught, are logged consistently.
+
+## 4. Developer Cookbook: Handling Asynchronous Errors
+
+The following recipe shows the standard "golden path" for handling errors within an asynchronous function, such as a form submission handler.
+
+```typescript
+import { useErrorLogger, useErrorModal } from '@bigcommerce/checkout/error-handling-utils'; // Assuming hooks exist for ease of use
+
+const MyComponent = () => {
+    const errorLogger = useErrorLogger();
+    const { showError } = useErrorModal();
+
+    const handleSubmit = async (values) => {
+        try {
+            // 1. Attempt the asynchronous action.
+            await props.checkoutService.updateShippingAddress(values.address);
+
+        } catch (error) {
+            // 2. Report the error to the centralized service.
+            errorLogger.log(error);
+
+            // 3. Display a user-friendly message.
+            showError(error);
+        }
+    };
+
+    // ... component render logic ...
+};
 ```
 
-### 3.3. The `ErrorLogger` Service
+## 5. Custom Error Types
 
-The `ErrorLogger` (`packages/error-handling-utils`) is the centralized service for reporting errors to external monitoring systems (like Sentry). Both the `<ErrorBoundary>` and component-level `catch` blocks use this service.
-
-### 3.4. The `<ErrorModal>` Component
-
-The `<ErrorModal>` (`packages/core`) is a standardized UI component for presenting a user-friendly error message in a modal dialog.
-
-## 4. Custom Error Types
-
-To allow for specific handling of different failure scenarios, the application uses a set of custom error classes. This allows `catch` blocks to inspect the error type and trigger different recovery logic.
+To enable more specific and intelligent error handling, the application uses several custom error classes. This allows `catch` blocks to change their behavior based on the *type* of error that occurred.
 
 *   **`RequestError`:** The most common type, thrown when an API request fails. It contains the server response details.
-*   **`CartChangedError`:** A specialized error thrown when an action fails because the cart has been modified on the server (e.g., an item is now out of stock).
-
-## 5. Error Recovery
-
-Error recovery is the process of returning the application to a stable state. The primary automated recovery mechanism is for `CartChangedError`.
-
-When this error is caught, it typically triggers a forced reload of the checkout data from the SDK. This re-syncs the client's state with the server's state, allowing the user to see the updated cart and proceed. Other errors may require a full page reload or simply instruct the user to try again.
+*   **`CartChangedError`:** A special error thrown if the user's cart is modified in another browser tab, causing the current checkout state to be stale. This error typically triggers an automatic page reload to recover.

@@ -11,9 +11,11 @@ The solution is not a novel AI trick, but a return to a foundational principle o
 
 ---
 
-### **The Solution: Decomposing by Architectural Slices**
+## The Solution: Structured Decomposition
 
-To successfully manage context, we must break down a given task into a sequence of architecturally distinct steps *before* engaging the AI. The "Architectural Slices" we discovered in Chapter 4 provide the perfect blueprint for this decomposition. We create a plan where each step is focused on a single slice, with its own clean, minimal, and highly relevant context.
+**Structured Decomposition** is the discipline of breaking down a complex software development task into a sequence of smaller, verifiable, and architecturally distinct steps. It is the practical application of the industry-standard **Vertical Slice Architecture** pattern.
+
+Instead of giving an AI a large, vague goal like "implement the feature," you first act as the architect. You analyze the request and identify the "architectural slices" it will touch. You then create a step-by-step implementation plan—a "briefing document"—that guides the AI through the task, slice by slice.
 
 <details>
 <summary><b>Example: A Slice-Based UI Transformation</b></summary>

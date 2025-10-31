@@ -36,16 +36,28 @@ The successful execution of this spec will result in the following folder and fi
     *   `01-architectural-overview.md`: The high-level summary of the system, its purpose, and a guide to the other documentation domains.
     *   `02-glossary-of-terms.md`: The definitive glossary for all technical terms, architectural concepts, and project-specific acronyms.
 *   **`01-application-architecture/`**: The "Code" Perspective. Describes the internal architecture of the application itself.
-    *   `01-module-breakdown.md`: A detailed inventory and explanation of the application's feature modules.
-    *   `02-state-management-guide.md`: A deep-dive guide to the layered state management strategy and data flow patterns.
-    *   `03-forms-and-validation-guide.md`: A practical guide to the project's standardized system for handling user input.
-    *   `04-view-management-guide.md`: An explanation of the state-driven system that controls the user's journey through the checkout flow.
-    *   `05-error-handling-guide.md`: A guide to the application's centralized error handling and logging system.
-    *   `06-internationalization-guide.md`: A guide to the system for managing language translations and localization.
+    *   `01-package-architecture-guide.md`: The "macro" view. An introductory guide to the monorepo's package structure and its key integration architectures.
+    *   `01-package-architecture-guide/`: A folder containing Level 3 deep-dives on specific package types and integration patterns.
+        *   `01-utility-packages-reference.md`: A comprehensive reference for all shared utility packages.
+        *   `02-testing-packages-reference.md`: A comprehensive reference for all shared testing packages.
+        *   `03-payment-integration-architecture.md`: A deep-dive into the "plugin" architecture for payment gateways.
+        *   `04-sdk-integration-architecture.md`: A deep-dive into the patterns for interacting with the BigCommerce SDK.
+        *   `05-analytics-integration-architecture.md`: A deep-dive into the architecture for tracking user behavior and performance metrics.
+        *   `06-embedded-checkout-architecture.md`: A deep-dive into the patterns for embedding the checkout in third-party sites.
+    *   `02-feature-module-guide.md`: The "micro" view. A deep-dive into the internal, feature-based architecture of the `core` application package.
+    *   `03-state-management-guide.md`: The deep-dive guide for the State Management slice.
+    *   `04-forms-and-validation-guide.md`: The deep-dive guide for the Forms & Validation slice.
+    *   `05-view-management-guide.md`: The deep-dive guide for the Step-Based View Management slice.
+    *   `06-error-handling-guide.md`: The deep-dive guide for the Error Handling slice.
+    *   `07-internationalization-guide.md`: The deep-dive guide for the Internationalization (I18n) slice.
+    *   `08-async-loading-guide.md`: The deep-dive guide for the Asynchronous Loading & Code-Splitting slice.
 *   **`02-design-system/`**: The "User" Perspective. Describes how the application looks, feels, and behaves.
     *   `01-design-system-philosophy.md`: The principles and rules of the visual language.
-    *   `02-component-library-guide.md`: A practical guide for consuming and contributing to the UI component library.
-    *   `03-styling-guide.md`: A practical guide for using the project's styling system and conventions.
+    *   `02-component-library-guide.md`: The deep-dive guide for the UI & Component slice.
+    *   `03-styling-guide.md`: The deep-dive guide for the Styling & Theming slice.
 *   **`03-integration-architecture/`**: The "Connections" Perspective. Describes how the application communicates with the outside world.
     *   `01-api-contracts-guide.md`: Documentation for internal API contracts and data handling patterns.
-    *   `02-external-services-guide.md`: A guide to integrating with external systems like the BigCommerce SDK and payment providers.
+    *   `02-external-services-guide.md`: The 'wiring diagram' for the Integration & Extensibility slice, detailing the "plugin" architecture for payment providers.
+    *   `03-analytics-guide.md`: The deep-dive guide for the Analytics slice.
+    *   `04-embedded-checkout-guide.md`: The deep-dive guide for the Embedded Checkout slice.
+    *   `05-dependency-injection-guide.md`: The 'wiring diagram' for the Context & Dependency Injection slice.

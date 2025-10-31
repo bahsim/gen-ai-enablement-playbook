@@ -1,112 +1,105 @@
 ---
-**Title:** View Management Guide
-**Purpose:** An explanation of the state-driven system that controls the user's journey through the checkout flow.
+**Title:** The View Management Guide (The "Orchestration Slice")
+**Purpose:** The "wiring diagram" for the View Management slice, a hybrid Cross-Cutting Concern that orchestrates the user's journey.
 **Audience:** All Developers
-**Maintenance:** Update when the checkout step flow or navigation logic changes.
+**Maintenance:** Update if the core navigation or step-rendering logic changes.
 ---
 
-# View Management Guide
+# The View Management Guide (The "Orchestration Slice")
 
-This document is the "Level 2" deep-dive into the View Management slice. It provides the complete, end-to-end "wiring diagram" for the state-driven system that controls the user's journey through the checkout.
+This document is the "wiring diagram" for the **View Management slice**. This is a specialized, hybrid **Cross-Cutting Concern** that is responsible for orchestrating the user's linear journey through the checkout.
 
-## 1. The Architectural Pattern: A State-Driven Controller
+## 1. Architectural Principles
 
-View management in this application does **not use a traditional router**. Instead, it is governed by a centralized, state-driven controller pattern.
+This slice is governed by two core principles:
 
-*   **The Controller:** The `CheckoutPage.tsx` component is the single controller for the entire checkout flow.
-*   **The View:** The individual step components (e.g., `Customer.tsx`, `Shipping.tsx`) are the Views.
-*   **The State:** The user's current position (the "active step") is held in the global state, managed by the BigCommerce Checkout SDK.
-*   **The Mechanism:** The Controller renders the active View. When the View is complete, it signals the Controller via a callback, and the Controller dispatches an action to update the state, which triggers the rendering of the next View.
+*   **Orchestration:** The primary role of this slice is to **orchestrate** the user's journey, rendering the correct **vertical feature slice** (e.g., the `Customer` module, the `Shipping` module) at the correct time.
+*   **State-Driven Control:** The user's position in the flow is not managed by the view components themselves. It is controlled exclusively by the global `CheckoutState`. This decouples the feature components from the overall application flow, allowing them to focus on their specific responsibilities.
 
-## 2. The Full Lifecycle: The "Wiring Diagram"
+## 2. The Full Lifecycle of a View
 
-The following diagram illustrates the complete, end-to-end sequence of a single step transition. This is the core logical loop of the View Management slice.
+The following diagram illustrates the complete, end-to-end "wiring diagram" for a single view transition. It shows the full lifecycle, from the initial rendering of a step to the user completing it and triggering a re-render with the next step in the sequence.
 
 ```mermaid
 sequenceDiagram
+    participant App as renderCheckout.tsx
     participant Controller as CheckoutPage.tsx
+    participant State as CheckoutState (SDK)
     participant View as Customer.tsx
-    participant SDK
 
-    Controller->>View: Renders View, passing `onContinueAsGuest` callback
+    App->>Controller: Renders <CheckoutPage />
+    Controller->>State: Loads initial state
+    State-->>Controller: Returns active step (e.g., "Customer")
+    Controller->>View: Renders <Customer /> with onContinue callback
+    
+    Note over View: User fills out form...
 
-    Note over View: User interacts with the form
-
-    View->>SDK: Dispatches `continueAsGuest()` action
-    SDK-->>View: Returns success
-
-    View->>Controller: Invokes `onContinueAsGuest()` callback
-    
-    Controller->>Controller: Executes `navigateToNextIncompleteStep()`
-    Controller->>SDK: Reads `steps` array from state
-    SDK-->>Controller: Returns `steps`
-    
-    Note over Controller: Finds next incomplete step (e.g., Shipping)
-    
-    Controller->>SDK: Dispatches action to set active step to 'Shipping'
-    SDK-->>Controller: Returns updated state with new active step
-    
-    Controller->>Controller: Re-renders, now showing the Shipping component
+    View->>State: Dispatches `continueAsGuest()` action
+    State-->>State: Updates active step to "Shipping"
+    State-->>Controller: Notifies of state change
+    Controller->>Controller: Re-renders with new active step
+    Controller->>App: Renders <Shipping /> component
 ```
 
-## 3. The Controller-View Communication Contract
+## 3. The Central Controller Pattern
 
-The sections below break down the key parts of the lifecycle diagram with their corresponding code.
+The entire View Management slice is orchestrated by a central controller, the **`CheckoutPage.tsx`** component. This component is responsible for subscribing to the global state, determining the active step, and rendering the appropriate view component.
 
-### 3.1. The Controller Passes the Callback
+To manage navigation, it uses a **Controller-View Callback Pattern**.
+
+### The Contract: Passing the Callback
 
 The Controller (`CheckoutPage.tsx`) renders the active View component (`<Customer />`) and passes a reference to its own internal navigation method (`this.navigateToNextIncompleteStep`) as a prop.
 
 ```typescript
-// In CheckoutPage.tsx
+// In CheckoutPage.tsx (The Controller)
+
 private renderCustomerStep(step: CheckoutStepStatus): ReactNode {
     return (
-        <CheckoutStep {...step}>
-            <LazyContainer>
-                <Customer
-                    onContinueAsGuest={this.navigateToNextIncompleteStep}
-                    // ... other props
-                />
-            </LazyContainer>
-        </CheckoutStep>
+        <Customer
+            // ... other props
+            onContinueAsGuest={ this.navigateToNextIncompleteStep } // The callback is passed as a prop.
+        />
     );
 }
 ```
 
-### 3.2. The View Invokes the Callback
+### The Interaction: Invoking the Callback
 
 After the View (`Customer.tsx`) completes its primary responsibility (in this case, calling the `continueAsGuest` action on the SDK), it invokes the callback prop (`onContinueAsGuest()`) to signal to the Controller that it is finished.
 
 ```typescript
-// In Customer.tsx
-const handleContinueAsGuest = useCallback(async (formValues: GuestFormValues) => {
-    try {
-        await customerData.actions.continueAsGuest({ email });
-        
-        // Signal completion to the Controller
+// In Customer.tsx (The View)
+
+// This is called after the user submits the guest form.
+private handleContinueAsGuest: (data: CustomerCredentials) => Promise<void> = async (data) => {
+    const { onContinueAsGuest } = this.props;
+
+    // The View completes its internal work...
+    await customerData.actions.continueAsGuest({ email });
+
+    // ...then invokes the callback to notify the Controller.
+    if (onContinueAsGuest) {
         onContinueAsGuest();
-    } catch (error) {
-        // ...
     }
-}, [/*...*/]);
+};
 ```
 
 ## 4. The Navigation Mechanism
 
-The final piece of the system is the navigation logic inside the Controller. When the callback is invoked, the Controller executes its navigation method to determine the next step and trigger the state change.
+The final piece of the loop is the navigation callback itself. When the View invokes the callback, the `navigateToNextIncompleteStep` method inside the Controller is executed. This method determines the next logical step in the checkout flow and dispatches the action to update the global state, which causes the Controller to re-render with the new, correct view.
 
 ```typescript
-// In CheckoutPage.tsx
-private navigateToNextIncompleteStep: (options?: { isDefault?: boolean }) => void = (
-    options,
-) => {
+// In CheckoutPage.tsx (The Controller)
+
+private navigateToNextIncompleteStep: () => void = () => {
     const { steps } = this.props;
-    // 1. Find the next incomplete step in the `steps` array from the state.
     const nextIncompleteStep = find(steps, { isComplete: false });
 
     if (nextIncompleteStep) {
-        // 2. Update the state to make the next step active.
-        this.navigateToStep(nextIncompleteStep.type, options);
+        // This dispatches the action that updates the global state,
+        // which triggers the re-render with the next view.
+        this.props.goToStep(nextIncompleteStep.type);
     }
 };
 ```

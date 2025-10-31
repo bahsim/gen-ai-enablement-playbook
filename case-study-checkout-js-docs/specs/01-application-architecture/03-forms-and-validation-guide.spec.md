@@ -1,19 +1,28 @@
-# Spec: Forms and Validation Guide
+---
+spec_version: 2
+spec_id: checkout-js-forms-validation-guide
+title: Spec: Forms and Validation Guide
+description: To define the structure and content for the guide to the Forms and Validation Cross-Cutting Concern.
+objective: To generate a comprehensive guide that documents the Forms & Validation Cross-Cutting Concern (CCC) as a governed, horizontal architectural slice.
+---
 
-## 1. Objective
+### 1. Architectural Principles
 
-To analyze the `C:\learn\checkout-js` project and generate the complete content for the **`01-application-architecture/03-forms-and-validation-guide.md`** document.
+The documentation for the Forms & Validation slice **must** be framed by the following core principles, derived from modern architectural best practices for managing CCCs:
 
-## 2. Rationale
+*   **Principle of the Horizontal Slice:** Forms and validation are a **governed horizontal slice**. This architecture provides a standardized, reusable set of tools and patterns for all user input, preventing the **scattering and tangling** of form state logic and validation rules across dozens of feature components.
+*   **Principle of Decoupling:** The slice **decouples** validation logic from component logic. This is achieved by defining validation rules in independent, reusable schemas that are then provided to the form components, rather than writing validation logic directly inside the components.
 
-Nearly every step of the checkout process involves a form. A practical, example-driven guide to the project's standardized approach to forms and validation is crucial for ensuring consistency, security, and a good user experience.
+### 2. Rationale
 
-## 3. Verification Criteria
+Nearly every step of the checkout process involves a form. This guide is crucial for documenting how this critical CCC is architected to ensure consistency, security, and a good user experience, while preventing the degradation of code quality that comes from scattered and tangled logic.
 
-The successful execution of this spec will result in the `01-application-architecture/03-forms-and-validation-guide.md` file being populated with the following sections:
+### 3. Verification Criteria
+
+The successful execution of this spec will result in the `03-forms-and-validation-guide.md` file being populated with the following sections:
 
 1.  **Core Technologies:**
-    *   Must clearly explain the roles of the two primary libraries: **Formik** for form state management and **Yup** for schema-based validation.
+    *   Must clearly explain the roles of the two primary libraries: **Formik** for form state management and **Yup** for schema-based validation, explaining how they work together to form a cohesive, decoupled slice.
 
 2.  **Standard Implementation Pattern:**
     *   Must provide a complete, practical code example of a standard form component.
