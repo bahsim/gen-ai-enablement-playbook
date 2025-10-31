@@ -79,7 +79,7 @@ graph TD
     Billing -- User decides to log in or Clicks Edit --> Customer
     Payment -- User decides to log in or Clicks Edit --> Customer
 
-    style IsLoggedIn fill:#bbf,stroke:#333,stroke-width:2px
-    style CartContainsPhysical fill:#bbf,stroke:#333,stroke-width:2px
-    style IsBillingSame fill:#bbf,stroke:#333,stroke-width:2px
+    style IsLoggedIn fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+    style CartContainsPhysical fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+    style IsBillingSame fill:#bbf,stroke:#333,stroke-width:2px,color:#000
 ```
