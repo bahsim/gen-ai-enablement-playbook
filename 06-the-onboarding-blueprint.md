@@ -1,12 +1,10 @@
-# **5. The Role-Based Onboarding Blueprint**
+# **6. A Role-Based Onboarding Blueprint**
 
-The quality of a developer's onboarding is the single greatest predictor of their effectiveness with an AI assistant. **The better a developer is onboarded, the more effective their use of AI will be.**
+A developer's onboarding is a significant predictor of their effectiveness with an AI assistant. A developer who lacks a contextual understanding of a project will ask vague, uninformed questions of their AI assistant. The AI, in turn, will amplify that lack of context, generating code that is disconnected from the project's architecture, patterns, and constraints.
 
-This is a direct extension of the "Great Amplifier" principle. A developer who lacks a deep, contextual understanding of a project will ask vague, uninformed questions of their AI assistant. The AI, in turn, will amplify that lack of context, generating code that is disconnected from the project's architecture, patterns, and constraints. This is how technical debt is created at an accelerated rate.
+Conversely, a developer who has been properly onboarded possesses a mental model of the system. This enables them to provide the AI with high-quality, context-rich "briefing documents" that lead to high-quality, architecturally-sound results.
 
-Conversely, a developer who has been properly onboarded possesses a rich mental model of the system. They understand not just the "what" of the code, but the "why" of the architecture. This enables them to provide the AI with high-quality, context-rich "briefing documents" that lead to high-quality, architecturally-sound results.
-
-Therefore, a structured onboarding process is not a human resources checklist; it is an essential technical prerequisite for successful AI adoption. The goal of onboarding is **context acquisition**. The following blueprint is a role-based methodology for achieving it.
+A structured onboarding process is a valuable technical prerequisite for effective AI adoption. The goal of onboarding is **context acquisition**. The following blueprint is a role-based set of recommendations for achieving it.
 
 ---
 

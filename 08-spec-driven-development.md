@@ -1,30 +1,30 @@
-# **7. Spec-Driven Development: The Ultimate Discipline**
+# **8. Spec-Driven Development**
 
-The final and most powerful principle that unifies this entire methodology is the adoption of **Spec-Driven Development**. This is the paradigm where our interaction with the system becomes absolute: if we want to improve the system, we do not touch the code. We improve the spec, and the code follows.
+A powerful principle that unifies the tactics in this playbook is the adoption of **Spec-Driven Development**. In this workflow, if a developer wants to improve the system, they do not touch the code first. They improve the spec, and the code follows.
 
-This approach is the culmination of all previous chapters. It transforms documentation from a passive artifact into the active, prescriptive source of truth that directs all engineering work.
+This approach transforms documentation from a passive artifact into the active, prescriptive source of truth that directs engineering work.
 
 ---
 
 ### **Part 1: The Workflow**
 
-In a Spec-Driven workflow, the specification is not a reflection of the code; **the code is a reflection of the spec.** This creates two inviolable rules:
+In a Spec-Driven workflow, the specification is not a reflection of the code; **the code is a reflection of the spec.** This creates two guiding principles:
 1.  **No action is taken without a corresponding change to the specification first.**
 2.  **The goal of development is to make the system's behavior match the spec.**
 
-This discipline transforms the development process into a clear, predictable sequence:
+This practice transforms the development process into a clear, predictable sequence:
 1.  **Define the Change:** A new feature, bug fix, or refactor is proposed.
 2.  **Update the Spec:** Before any code is written, the relevant specification document is modified (e.g., an ADR, an API schema, a component design).
 3.  **Implement to the Spec:** The developer, assisted by the AI, writes or modifies the code with a single, clear objective: to make the code's behavior match the new specification.
 4.  **Validate Against the Spec:** Tests are written to assert that the implementation correctly fulfills the requirements laid out in the spec.
 
-This workflow eliminates "documentation debt," perfects AI collaboration by providing ideal context, and drastically reduces ambiguity. It is the ultimate defense against "drift"—the slow divergence of code and documentation that pollutes AI context and degrades performance over time.
+This workflow can eliminate "documentation debt," improve AI collaboration by providing ideal context, and reduce ambiguity. It is an effective defense against "drift"—the slow divergence of code and documentation that can degrade performance over time.
 
 ---
 
 ### **Part 2: The Artifact: Anatomy of a Spec**
 
-A developer in this workflow does not just code; they author a `Spec`. This is not traditional documentation; it is an **executable contract** that serves as the blueprint for generation. The quality of the spec is the single greatest predictor of the quality of the final result.
+A developer in this workflow authors a `Spec`. This is not traditional documentation; it is a **contract** that serves as the blueprint for generation. The quality of the spec is a strong predictor of the quality of the final result.
 
 <details>
 <summary><b>The Three Pillars of a Professional Spec</b></summary>

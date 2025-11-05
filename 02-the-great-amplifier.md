@@ -1,18 +1,18 @@
-# **2. The Great Amplifier: AI's Double-Edged Sword**
+# **2. AI as an Amplifier of Engineering Discipline**
 
-The adoption of Generative AI presents a paradox. On projects with established best practices and a clean architecture, AI multiplies effectiveness, leading to massive productivity gains. On projects burdened with technical debt, anti-patterns, and poor knowledge sharing, the same AI amplifies the existing chaos and accelerates the generation of garbage.
+The adoption of Generative AI has a direct and significant impact on team productivity. On projects with established best practices and a clean architecture, AI multiplies effectiveness. Conversely, on projects burdened with technical debt, anti-patterns, and poor knowledge sharing, the same AI often amplifies existing inefficiencies.
 
-This reveals a fundamental truth: **AI does not fix a broken process; it breaks it faster.**
+This reveals a core principle of AI adoption: **AI does not fix a broken process; it accelerates the outcomes of the existing process, for better or for worse.**
 
-The strategic question is not, "How do we use AI?" but rather, **"How do we prepare our engineering discipline for the age of AI acceleration?"** Before adopting AI at scale, a team must first address its foundational gaps.
+The strategic question is not, "How do we use AI?" but rather, **"How do we prepare our engineering discipline for AI-driven acceleration?"** To effectively adopt AI at scale, a team must first address its foundational gaps in process and documentation.
 
 ---
 
 ### **The Virtuous Cycle: Using AI to Prepare for AI**
 
-This is not a contradiction, but a powerful extension of the amplifier principle. The same AI that demands these high standards is also our most powerful tool for achieving them. It is the perfect assistant for closing the very gaps that prevent its own effective use.
+The same AI that benefits from high standards is also a powerful tool for achieving them. It is an effective assistant for closing the very gaps that prevent its own optimal use.
 
-This creates a virtuous cycle: you use the AI to improve your engineering discipline, which in turn improves the AI's output, which makes it even easier to continue elevating that discipline.
+This creates a virtuous cycle: an AI assistant can be used to improve engineering discipline (e.g., by refactoring code or generating documentation), which in turn improves the quality of the context fed to the AI, leading to better AI output.
 
 <details>
 <summary><b>Using AI to Close Foundational Gaps: Practical Examples</b></summary>

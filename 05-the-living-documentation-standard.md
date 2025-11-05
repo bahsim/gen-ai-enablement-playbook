@@ -1,4 +1,4 @@
-# **4. The Living Documentation Standard**
+# **5. A Standard for Living Documentation**
 
 The purpose of documentation is to create a **comprehensive, multi-layered "Living System of Knowledge"** for a project. This system must serve all developers, not just newcomers, throughout the entire development lifecycle. It is a dynamic tool for daily work, architected with two core, complementary principles: Hierarchical Abstraction and a Dual-Perspective Architecture.
 
@@ -86,17 +86,17 @@ A deep, file-by-file analysis of a real-world checkout application reveals the f
 
 </details>
 
-### Part 3: Organizing Documentation (Mapping Slices to Domains)
+### **Part 3: A Recommended Documentation Structure**
 
 Once you have a clear definition of your architectural domains (the "rooms") and a comprehensive list of your architectural slices (the "systems"), the final step is to organize your documentation by mapping the slices to their primary domain.
 
-The following is a standard mapping for a frontend application:
+The following is a recommended, but not mandatory, mapping for a frontend application:
 
 *   **The `Integration & Extensibility` Slice:** Documented in the **`API Contracts & External Services Guide`**.
 
-### Part 4: The "Wiring Diagram" Standard for Level 2 Guides
+### **Part 4: The "Wiring Diagram" Standard for Deep-Dive Guides**
 
-A "Level 2" deep-dive guide is the definitive **Single Source of Truth** for its architectural slice. Its purpose is to provide the complete, end-to-end mental model—the "wiring diagram"—required for a developer to understand and work effectively within that subsystem. It must be sufficiently detailed to serve as the primary context for any AI-assisted task within its domain.
+A deep-dive guide is the definitive **Single Source of Truth** for its architectural slice. Its purpose is to provide the complete, end-to-end mental model—the "wiring diagram"—required for a developer to understand and work effectively within that subsystem. It must be sufficiently detailed to serve as the primary context for any AI-assisted task within its domain.
 
 Every "Level 2" guide must contain the following four sections:
 

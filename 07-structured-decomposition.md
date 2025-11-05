@@ -1,21 +1,21 @@
-# **6. Structured Decomposition: The Key to Context Management**
+# **7. Structured Decomposition for Context Management**
 
-We have established that providing high-quality context is the key to effective AI assistance. However, this immediately exposes a hard physical constraint: the **LLM's context window**. This limited "short-term memory" creates a fundamental tension that every developer must learn to navigate.
+Providing high-quality context is key to effective AI assistance. This exposes a hard physical constraint: the **LLM's context window**. This limited "short-term memory" creates a tension that developers must navigate.
 
 *   **Too little context** leads to the failures of "vibe coding."
-*   **Too much context** is equally problematic, leading to truncation and a low signal-to-noise ratio that confuses the model.
+*   **Too much context** can be equally problematic, leading to truncation and a low signal-to-noise ratio that confuses the model.
 
-The goal is not to provide the *most* context, but the most *optimal* context. This skill is to maximize **signal density**—packing the most relevant, high-impact information into the limited space of the context window.
+The goal is not to provide the *most* context, but the most *optimal* context. This is a skill of maximizing **signal density**—packing the most relevant, high-impact information into the limited space of the context window.
 
-The solution is not a novel AI trick, but a return to a foundational principle of disciplined software engineering: **structured decomposition**.
+A solution is a return to a foundational principle of disciplined software engineering: **structured decomposition**.
 
 ---
 
-## The Solution: Structured Decomposition
+## The Approach: Structured Decomposition
 
-**Structured Decomposition** is the discipline of breaking down a complex software development task into a sequence of smaller, verifiable, and architecturally distinct steps. It is the practical application of the industry-standard **Vertical Slice Architecture** pattern.
+**Structured Decomposition** is the practice of breaking down a complex software development task into a sequence of smaller, verifiable, and architecturally distinct steps. It is a practical application of the **Vertical Slice Architecture** pattern.
 
-Instead of giving an AI a large, vague goal like "implement the feature," you first act as the architect. You analyze the request and identify the "architectural slices" it will touch. You then create a step-by-step implementation plan—a "briefing document"—that guides the AI through the task, slice by slice.
+Instead of giving an AI a large, vague goal like "implement the feature," an architect can first analyze the request, identify the "architectural slices" it will touch, and create a step-by-step implementation plan that guides the AI through the task, slice by slice.
 
 <details>
 <summary><b>Example: A Slice-Based UI Transformation</b></summary>

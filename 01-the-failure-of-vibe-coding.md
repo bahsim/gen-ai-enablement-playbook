@@ -1,14 +1,14 @@
 # **1. The Failure of Vibe Coding**
 
-The age of AI has introduced a new, seductive, but ultimately flawed style of development: **"vibe coding."** It's the practice of giving a Generative AI assistant a short, vague prompt—"refactor this function," "build me a login page"—and hoping for a good result.
+Generative AI enables a rapid, prompt-driven style of development that can be described as **"vibe coding."** This approach, based on short, high-level prompts, is effective for small, isolated tasks but often fails when applied to the interconnected reality of a large-scale software project.
 
-This approach works for trivial, isolated tasks. It fails completely when applied to the interconnected reality of a large-scale software project. This chapter will explain why this simple prompting fails and introduce the more sophisticated discipline required to achieve professional, production-ready results: **Context Engineering.**
+This chapter contrasts this simple prompting approach with a more structured, context-aware workflow required to achieve professional, production-ready results.
 
 ---
 
-### **Part 1: The Seductive but Flawed Skill of Prompt Engineering**
+### **Part 1: The Limitations of Simple Prompt Engineering**
 
-**Prompt Engineering** is the foundational skill of designing a clear, self-contained instruction for an AI. A strong prompt provides a role, a task, context, and precise requirements, removing ambiguity to guide the AI toward a predictable result. For an isolated task, this is a powerful technique.
+**Prompt Engineering** is the foundational skill of designing a clear, self-contained instruction for an AI. For an isolated task, this is a powerful technique.
 
 <details>
 <summary><b>Example: From a Weak Prompt to a Strong Prompt</b></summary>
@@ -96,11 +96,11 @@ To make these limitations concrete, consider the following scenarios for a devel
 
 ---
 
-### **Part 2: The Necessary Evolution to Context Engineering**
+### **Part 2: The Shift to Context-Aware Prompting**
 
-The failures of simple prompting reveal a fundamental truth: **the quality of AI-generated code is determined not by the length of the prompt, but by the quality of the information it has to reason with.** This is the core principle of **Context Engineering**.
+The failures of simple prompting show that the quality of AI-generated code is determined not by the length of the prompt, but by the quality of the information it has to reason with.
 
-**Context Engineering** is the systematic practice of identifying, curating, and providing the AI with specific, high-quality information *alongside* a concise prompt. If prompt engineering is asking the right question, context engineering is providing the right briefing documents.
+This leads to a more effective practice: **Context-Aware Prompting**. This is the systematic practice of identifying, curating, and providing the AI with specific, high-quality information *alongside* a concise prompt. If prompt engineering is asking the right question, context-aware prompting is providing the right briefing documents.
 
 <details>
 <summary><b>A Practical Example: The Context Engineering Workflow</b></summary>
@@ -158,7 +158,6 @@ With the high-quality context assembled, the developer provides the three snippe
 This approach systematically solves the problems of simple prompting by giving the AI the explicit guardrails it needs to generate compliant, high-quality code.
 
 </details>
-
 ---
 
 ### **Part 3: The New Bottleneck: The Burden of Manual Preparation**
@@ -195,3 +194,4 @@ The entire context-gathering process took Alex nearly ten minutes of disruptive,
 We have traded the problem of **"unreliable AI output"** for the new problem of **"inefficient human input preparation."**
 
 This playbook is the answer to that challenge. The following chapters will outline the systematic, engineering-led approach required to move beyond manual, *ad-hoc* context preparation and build a truly streamlined, scalable, and effective AI-assisted development workflow.
+
