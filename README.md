@@ -4,6 +4,12 @@ This playbook guides developers from basic GenAI interaction to a sophisticated,
 
 ---
 
+### **Executive Summary**
+*   [**Beyond the Prompt: Why Engineering Discipline is the Key to Effective Generative AI**](./00-executive-summary.md)
+    *   [Русская версия](./00-executive-summary.ru.md)
+
+---
+
 ## The Four Parts of the Journey
 
 ### **Part 1: The Foundational Problem**
