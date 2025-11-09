@@ -1,4 +1,4 @@
-# **9. Implementing a Living Ruleset**
+# **10. Implementing a Living Ruleset**
 
 The principles in this playbook lead to a single goal: to make engineering excellence the path of least resistance. This can be achieved by transforming high-level standards and specifications from static documents into a **living, machine-readable ruleset** that is active in the daily workflow.
 
