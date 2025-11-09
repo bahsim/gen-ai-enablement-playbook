@@ -1,4 +1,4 @@
-# **8. The Golden Mean: Manual, Automated, and AI-Assisted Work**
+# **10. The Golden Mean: Manual, Automated, and AI-Assisted Work**
 
 The playbook's emphasis on structured decomposition and context engineering can create an unintended impression: that AI should be used for every task. This is a fallacy. Effective engineering requires recognizing that different tasks demand different tools, and the optimal solution often emerges from a strategic combination of three approaches: **manual labor, automation by scripts, and AI generation**.
 
@@ -136,7 +136,7 @@ The Golden Mean principle integrates seamlessly with the playbook's core concept
 
 #### **Spec-Driven Development + Golden Mean**
 
-**Chapter 9** emphasizes updating the spec before implementation. The Golden Mean clarifies that **spec creation is manual work**, while **implementation can leverage scripts and AI**.
+**Chapter 11** emphasizes updating the spec before implementation. The Golden Mean clarifies that **spec creation is manual work**, while **implementation can leverage scripts and AI**.
 
 **Example Workflow:**
 1.  **Manual:** Write or update the specification document.
@@ -146,7 +146,7 @@ The Golden Mean principle integrates seamlessly with the playbook's core concept
 
 #### **Living Ruleset + Golden Mean**
 
-**Chapter 10** describes codifying standards into machine-readable rules. The Golden Mean recognizes that **rules are enforced by scripts**, while **AI generates code within those rules**.
+**Chapter 12** describes codifying standards into machine-readable rules. The Golden Mean recognizes that **rules are enforced by scripts**, while **AI generates code within those rules**.
 
 **Example Workflow:**
 1.  **Manual:** Define the architectural standard or rule.

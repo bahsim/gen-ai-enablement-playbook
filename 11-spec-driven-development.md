@@ -1,4 +1,4 @@
-# **9. Spec-Driven Development**
+# **11. Spec-Driven Development**
 
 A powerful principle that unifies the tactics in this playbook is the adoption of **Spec-Driven Development**. In this workflow, if a developer wants to improve the system, they do not touch the code first. They improve the spec, and the code follows.
 

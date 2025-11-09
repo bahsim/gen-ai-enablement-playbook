@@ -1,4 +1,4 @@
-# **12. The Playbook in Action: A Real-World Case Study**
+# **14. The Playbook in Action: A Real-World Case Study**
 
 This playbook is not a theoretical exercise. It is a set of practical, evidence-based tactics that have been tested against a complex, enterprise-grade, open-source project. This chapter summarizes that journey, providing a transparent, real-world account of how the playbook's principles were applied to transform a complex codebase into a well-documented, AI-ready "Living System of Knowledge."
 
@@ -22,7 +22,7 @@ However, this initial discovery phase also fell into the exact **"Vibe Coding" t
 
 ### **3. The Process Part 2: The Spec-Driven Correction Loop**
 
-The turning point of the project was the explicit adoption of **Spec-Driven Development**, as described in **Chapter 9**. The process became: no documentation would be written or modified without first creating or updating a corresponding `spec.md` file.
+The turning point of the project was the explicit adoption of **Spec-Driven Development**, as described in **Chapter 11**. The process became: no documentation would be written or modified without first creating or updating a corresponding `spec.md` file.
 
 This practice transformed the workflow. The act of writing the spec required a higher level of critical thinking and architectural control. This, combined with a relentless, evidence-based fact-checking process, became the engine of correction. The "Form-as-Architecture" fabrication was disproven and replaced by the true, verified **Container/Presentational Pattern**. This iterative loop—**Hypothesize -> Specify -> Verify -> Correct**—was applied to every architectural slice, systematically purging fabrications and replacing them with verifiable truth.
 

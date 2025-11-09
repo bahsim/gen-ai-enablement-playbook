@@ -1,4 +1,4 @@
-# **11. Conclusion: The Evolving Role of the Developer**
+# **13. Conclusion: The Evolving Role of the Developer**
 
 The tactics outlined in this playbook are a practical guide to a shift in development practices. The central lesson is that getting high-quality, production-ready results from a GenAI assistant is not a matter of prompt engineering, but of **engineering discipline**.
 

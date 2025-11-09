@@ -22,15 +22,17 @@ This playbook guides developers from basic GenAI interaction to a sophisticated,
 *   [**5. The Living Documentation Standard**](./05-the-living-documentation-standard.md)
 *   [**6. The Onboarding Blueprint**](./06-the-onboarding-blueprint.md)
 *   [**7. Structured Decomposition**](./07-structured-decomposition.md)
-*   [**8. The Golden Mean: Manual, Automated, and AI-Assisted Work**](./08-the-golden-mean.md)
+*   [**8. System Configuration Documentation: The Middle Layer**](./08-system-configuration-documentation.md)
+*   [**9. Task-Specific Documentation: From Architecture to Implementation Context**](./09-task-specific-documentation.md)
+*   [**10. The Golden Mean: Manual, Automated, and AI-Assisted Work**](./10-the-golden-mean.md)
 
 ### **Part 3: The Professional Workflow**
-*   [**9. Spec-Driven Development**](./09-spec-driven-development.md)
-*   [**10. Implementing a Living Ruleset**](./10-implementing-a-living-ruleset.md)
+*   [**11. Spec-Driven Development**](./11-spec-driven-development.md)
+*   [**12. Implementing a Living Ruleset**](./12-implementing-a-living-ruleset.md)
 
 ### **Part 4: The Evolved Developer**
-*   [**11. Conclusion: The Evolved Role of the Developer**](./11-conclusion-the-evolved-developer.md)
-*   [**12. The Playbook in Action: A Real-World Case Study**](./12-a-real-world-case-study.md)
+*   [**13. Conclusion: The Evolved Role of the Developer**](./13-conclusion-the-evolved-developer.md)
+*   [**14. The Playbook in Action: A Real-World Case Study**](./14-a-real-world-case-study.md)
 
 ---
 
