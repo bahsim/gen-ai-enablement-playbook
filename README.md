@@ -1,38 +1,39 @@
 # GenAI Enablement Playbook
 
-This playbook guides developers from basic GenAI interaction to a sophisticated, efficient workflow for complex software projects. It tells the story of a journey from simple prompting to a new level of engineering discipline required in the age of AI.
+This playbook guides developers from basic GenAI interaction to a sophisticated, efficient workflow for complex software projects. It provides a systematic approach to preparing engineering discipline for AI-driven acceleration.
 
 ---
 
-### **Executive Summary**
-*   [**Beyond the Prompt: Why Engineering Discipline is the Key to Effective Generative AI**](./00-executive-summary.md)
-    *   [Русская версия](./00-executive-summary.ru.md)
+## The Playbook Structure
+
+### **Concept**
+*   [**The GenAI Enablement Playbook: Concept**](./00-concept.md)
+    *   This document defines the conceptual foundation for developing the playbook. It explains the core ideas that guide the playbook's structure and content.
 
 ---
 
-## The Four Parts of the Journey
+## The Four Chapters
 
-### **Part 1: The Foundational Problem**
-*   [**1. The Failure of Vibe Coding**](./01-the-failure-of-vibe-coding.md)
-*   [**2. The Great Amplifier: AI's Double-Edged Sword**](./02-the-great-amplifier.md)
-*   [**3. The High-Level View: The Foundation of Effective Delegation**](./03-the-high-level-view.md)
+### **1. The Problem**
+*   [Simple prompt-driven development fails on large-scale projects](./01-the-problem.md)
+    *   The limitations of simple prompting, the shift to delegation, prerequisites for effective AI use, and the documentation challenge.
 
-### **Part 2: The Engineering Solution**
-*   [**4. Architectural Foundations of Slicing**](./04-architectural-foundations-of-slicing.md)
-*   [**5. The Living Documentation Standard**](./05-the-living-documentation-standard.md)
-*   [**6. The Onboarding Blueprint**](./06-the-onboarding-blueprint.md)
-*   [**7. Structured Decomposition**](./07-structured-decomposition.md)
-*   [**8. System Configuration Documentation: The Middle Layer**](./08-system-configuration-documentation.md)
-*   [**9. Task-Specific Documentation: From Architecture to Implementation Context**](./09-task-specific-documentation.md)
-*   [**10. The Golden Mean: Manual, Automated, and AI-Assisted Work**](./10-the-golden-mean.md)
+### **2. The Principle**
+*   [AI amplifies existing processes](./02-the-principle.md)
+    *   The strategic question, self-reinforcing cycle, golden mean for tool selection, spec-driven development, skeleton-first approach, and general rules for AI-agent.
 
-### **Part 3: The Professional Workflow**
-*   [**11. Spec-Driven Development**](./11-spec-driven-development.md)
-*   [**12. Implementing a Living Ruleset**](./12-implementing-a-living-ruleset.md)
+### **3. The Solution**
+*   [Documentation preparation in three concentric circles of constraints](./03-the-solution.md)
+    *   Basic architectural, system configuration, and task-specific documentation, with techniques for creating and managing context (architectural slicing, structured decomposition).
 
-### **Part 4: The Evolved Developer**
-*   [**13. Conclusion: The Evolved Role of the Developer**](./13-conclusion-the-evolved-developer.md)
-*   [**14. The Playbook in Action: A Real-World Case Study**](./14-a-real-world-case-study.md)
+### **4. The Result**
+*   [Effective development and evolved developers](./04-the-result.md)
+    *   Developers who direct AI-assisted work with architectural thinking and disciplined workflows.
 
 ---
 
+## How to Use This Playbook
+
+This playbook follows a logical progression from problem identification through principle understanding to solution implementation and expected results. Each chapter builds on previous concepts, creating a coherent system for enabling GenAI on projects.
+
+Read the chapters sequentially to understand the complete approach, or reference specific chapters for particular concepts.
