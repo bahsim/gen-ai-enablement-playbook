@@ -25,25 +25,24 @@ This is the story of how to move beyond the initial, simplistic approach to AI�
 
 These failures all stem from a single root cause: we are asking our powerful assistant to work without a proper briefing. We have traded the problem of **"unreliable AI output"** for the new problem of **"inefficient human input preparation."**
 
-### **The Solution: A Disciplined, Engineering-First Approach**
+### **The Solution: Documentation Preparation in Three Circles**
 
-To overcome these limitations, we must shift our focus from prompt engineering to **context engineering**. The goal is not to provide the *most* context, but the most *optimal* context—maximizing the signal density within the AI's limited context window. This is achieved by returning to the foundational principles of disciplined software engineering.
+To overcome these limitations, we must shift our focus from prompt engineering to **context engineering**. The solution is documentation preparation in three concentric circles of constraints:
 
-*   **Architectural Slicing:** First, we decompose a complex application into manageable **vertical slices** (user-facing features) and **horizontal slices** (cross-cutting capabilities like authentication or logging). This allows us to isolate a specific concern and provide the AI with a small, focused, and highly relevant context for any given task, dramatically improving the quality of its output.
-*   **Basic Architectural Documentation:** Next, we create a multi-layered, verifiable architectural blueprint that serves as the "Single Source of Truth." This documentation is mostly constant—it changes only when the architecture itself changes. It is the primary, machine-readable definition of the system's rules, patterns, and contracts, and it becomes the ultimate source of context for the AI.
-*   **Structured Decomposition:** We break down complex tasks into a sequence of smaller, verifiable steps that align with our architectural slices. Instead of "implement this feature," the workflow becomes a series of precise instructions: "Update the component's visual state," "Add the state management logic," and "Integrate the asynchronous API call."
-*   **The Golden Mean:** For each decomposed step, we intentionally choose the optimal tool—manual labor for strategic decisions, automation scripts for repetitive tasks, and AI generation for pattern recognition and code synthesis. This balanced approach maximizes efficiency while maintaining quality and strategic control.
+*   **Basic Architectural Documentation:** The first circle—comprehensive and high-level, mostly constant. This creates a multi-layered architectural blueprint that serves as the "Single Source of Truth." It changes only when the architecture itself changes, providing the foundational context needed for both human understanding and AI-assisted development.
+*   **System Configuration Documentation:** The second circle, bridging universal architecture to actual deployment. It documents what's actually configured in a specific instance, eliminating unnecessary exploration by constraining to what is actually used.
+*   **Task-Specific Documentation:** The innermost circle, ephemeral and created for specific tasks. This provides focused, implementation-ready context that bridges general architecture to implementation, fitting within the AI's context window while maintaining high signal density.
 
-### **The Workflow of Control: Spec-Driven Development**
+**Techniques for Managing Context:**
 
-These principles culminate in a powerful workflow that puts the developer firmly in the architect's seat: **Spec-Driven Development**. In this model, the specification is the primary artifact that drives both implementation and verification. The code is a reflection of the spec, not the other way around. The process is transformative:
+*   **Architectural Slicing:** Decompose a complex application into manageable **vertical slices** (user-facing features) and **horizontal slices** (cross-cutting capabilities). This allows us to provide the AI with focused context for a single slice instead of the entire application, dramatically reducing context requirements.
+*   **Structured Decomposition:** Break down complex tasks into a sequence of smaller, verifiable steps that fit within AI's context window. Approaches include decomposing by architectural slices, the "skeletons first" method, and other logical divisions.
 
-1.  **Define the Change:** Propose a new feature or bug fix.
-2.  **Update the Spec First:** Before any code is written, modify the relevant architectural document (the API contract, the component design, etc.). A professional spec rests on three pillars: a clear **Objective** (the "what"), a compelling **Rationale** (the "why"), and unambiguous **Verification Criteria** (the "proof").
-3.  **Implement to the Spec:** With the spec as the perfect, high-quality context, instruct the AI to write the code to match the contract.
-4.  **Validate Against the Spec:** Write tests to prove that the implementation fulfills the spec's requirements.
+**Supporting Principles:**
 
-This workflow eliminates "documentation debt" and transforms the spec from a passive artifact into the active, prescriptive source of truth that directs all engineering work.
+*   **The Golden Mean:** For each decomposed step, intentionally choose the optimal tool—manual labor for strategic decisions, automation scripts for repetitive tasks, and AI generation for pattern recognition and code synthesis.
+*   **Spec-Driven Development:** The specification drives implementation. Before any code is written, create or update the spec with Objective, Rationale, and Verification Criteria. The code is a reflection of the spec, not the other way around.
+*   **General Rules for AI-Agent:** Establish project-specific guidelines as machine-readable instruction files that transform standards from passive documentation into active guardrails.
 
 ### **The Outcome: The Evolved Developer**
 
