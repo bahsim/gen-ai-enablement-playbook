@@ -247,7 +247,7 @@ This example demonstrates the Golden Mean principle in practice: scaffolding a N
 
 ### The Task
 
-Create a complete NestJS backend application with authentication, multiple modules, and complex business logic following the Intent-Driven Generative Lifecycle (IDGL) methodology.
+Create a complete NestJS backend application with authentication, multiple modules, and complex business logic.
 
 ### The Decomposition and Tool Selection
 
