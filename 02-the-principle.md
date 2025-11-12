@@ -26,41 +26,63 @@ This creates a self-reinforcing cycle: an AI assistant can be used to improve en
 
 ## The Golden Mean: Strategic Tool Selection
 
-Effective engineering requires choosing the right tool for each task—manual labor for strategic decisions, automation by scripts for repetitive rule-based tasks, and AI generation for pattern recognition and synthesis. The optimal solution often emerges from a strategic combination of these three approaches.
+Effective engineering requires choosing the right tool for each task. The optimal solution often emerges from a strategic combination of three approaches: manual labor, automation by scripts, and AI generation. However, the relationship between these tools has fundamentally changed with the advent of AI-assisted development.
 
-**The Golden Mean** is not about using all three tools equally, but about **intentionally choosing the optimal tool for each specific step** of a decomposed task.
+**The Golden Mean** is not about using all three tools equally, but about **intentionally choosing the optimal tool for each specific step** of a decomposed task, recognizing that AI has lowered the barrier to script creation.
 
-### The Three Tools
+### The Fundamental Shift: AI Makes Scripts Accessible
 
-**1. Manual Labor: The Human Touch**
-- **Strategic and Architectural Decisions:** Tasks requiring high-level judgment, creativity, and system-wide thinking
+A critical insight: **AI has made automation accessible in ways that weren't possible before.** Tasks that previously required significant time investment to script can now be automated in minutes with AI assistance. This changes the decision calculus — the question is no longer "Is this worth scripting?" but rather "Can AI help me create a script for this quickly?"
+
+### The Three Tools and Their Relationships
+
+**1. Manual Labor: Strategic Control**
+- **Strategic and Architectural Decisions:** Tasks requiring high-level judgment, creativity, and system-wide thinking that cannot be delegated
 - **Tasks Requiring Human Judgment:** Work that demands nuanced understanding, context awareness, or subjective evaluation
 - **Learning and Exploration:** Tasks where the process of doing the work manually provides valuable understanding
+- **Review and Validation:** Critical evaluation of AI-generated artifacts, scripts, and code
 
-**2. Automation by Scripts: The Rule-Based Workhorse**
-- **Repetitive, Rule-Based Tasks:** Tasks that follow a clear pattern and can be expressed as an algorithm
-- **Tasks Requiring Speed and Reliability:** Operations that must execute quickly and consistently
+**2. Automation by Scripts: The Executable Solution**
+- **Repetitive, Rule-Based Tasks:** Tasks that follow clear, deterministic rules
+- **Tasks Requiring Speed and Reliability:** Operations that must execute quickly and consistently, without variation
 - **Tasks with Clear Input-Output Mappings:** Work where the transformation from input to output is unambiguous
+- **Frequently Executed Operations:** Tasks that run often enough to justify the investment
 
-**3. AI Generation: The Context-Aware Partner**
+**Key Insight:** Scripts are now more accessible because **AI can help generate them quickly**. The decision to script is no longer just about repetition — it's about whether the task can be expressed as clear rules that AI can help codify into a script.
+
+**3. AI Generation: Pattern Recognition and Synthesis**
 - **Pattern Recognition and Code Generation:** Tasks where the AI can recognize patterns in existing code and generate compliant new code
 - **Complex Tasks Requiring Context Understanding:** Work that benefits from the AI's ability to synthesize information from multiple sources
 - **Tasks Requiring Creative Synthesis:** Work that involves combining multiple concepts, patterns, or constraints into a coherent solution
+- **Script Generation:** Using AI to quickly create scripts for tasks that follow clear rules
+
+**Key Insight:** AI serves dual roles — it can generate code directly, but it can also generate scripts that automate repetitive tasks. This creates a powerful workflow: use AI to create scripts, then use scripts to execute repetitive work.
 
 ### The Decision Framework
 
-When facing a task, apply this three-question framework:
+When facing a task, apply this refined framework:
 
 1. **Is this task strategic or architectural?** → Use **Manual Labor**
-   - If the task requires high-level judgment, creativity, or system-wide thinking, it belongs to the human architect.
+   - If the task requires high-level judgment, creativity, or system-wide thinking that cannot be codified, it belongs to the human architect.
 
-2. **Is this task repetitive and rule-based?** → Use **Scripts**
-   - If the task follows clear, deterministic rules and will be executed multiple times, automate it.
+2. **Can this task be expressed as clear, deterministic rules?**
+   - **Yes, and it will be executed multiple times:** → Use **AI to generate a Script**, then use the script for execution
+   - **Yes, but it's a one-time task:** → Use **AI directly** to perform the task
+   - **No, it requires pattern recognition or context synthesis:** → Use **AI directly** for code generation
 
-3. **Does this task require pattern recognition or context synthesis?** → Use **AI**
+3. **Does this task require understanding existing codebase patterns?** → Use **AI**
    - If the task benefits from understanding patterns, combining multiple constraints, or generating code within defined rules, leverage AI.
 
-The Golden Mean principle transforms decomposition from a planning exercise into an execution strategy. For each decomposed step, choose the optimal tool, creating a hybrid workflow that maximizes efficiency and quality.
+### The Hybrid Workflow
+
+The Golden Mean principle transforms decomposition from a planning exercise into an execution strategy. For each decomposed step:
+
+1. **Decompose** the task into smaller, verifiable steps
+2. **Choose the tool** for each step using the decision framework
+3. **Consider tool transitions:** AI can generate scripts, scripts can prepare context for AI, manual work can refine and validate
+4. **Execute** with the chosen tool, creating a hybrid workflow that maximizes efficiency and quality
+
+This approach recognizes that AI has fundamentally changed the automation landscape—scripts are no longer expensive to create, making automation a viable option for many more tasks than before.
 
 ## Spec-Driven Development
 

@@ -22,7 +22,7 @@ Understanding this problem reveals a core principle: AI does not fix broken proc
 
 **The self-reinforcing cycle:** Use AI to improve engineering discipline (refactoring, documentation generation, pattern enforcement), which improves context quality, leading to better AI output.
 
-**The golden mean:** Effective engineering requires choosing the right tool for each task—manual labor for strategic decisions, automation by scripts for repetitive rule-based tasks, and AI generation for pattern recognition and synthesis. The optimal solution often emerges from a strategic combination of these three approaches.
+**The golden mean:** Effective engineering requires choosing the right tool for each task—manual labor for strategic decisions, automation by scripts for repetitive rule-based tasks, and AI generation for pattern recognition and synthesis. However, AI has fundamentally changed the automation landscape: AI can help generate scripts in minutes, making automation accessible in ways that weren't possible before. This changes the decision calculus—the question is no longer "Is this worth scripting?" but rather "Can AI help me create a script for this quickly?" AI serves dual roles: it can generate code directly, or it can generate scripts that automate repetitive tasks. The optimal solution often emerges from a strategic combination of these three approaches, recognizing tool transitions: AI can generate scripts, scripts can prepare context for AI, manual work can refine and validate.
 
 **Spec-driven development:** Follow a workflow where the specification drives implementation—improve the spec first, then the code follows.
 
@@ -58,7 +58,7 @@ When documentation is prepared:
 The playbook follows this progression:
 
 1. **The Problem:** Simple prompting fails because AI lacks context; manual context gathering is too slow; documentation preparation requires finding the right level of detail
-2. **The Principle:** AI amplifies existing processes; golden mean for tool selection; skeleton-first approach; spec-driven development; general rules for AI-agent
+2. **The Principle:** AI amplifies existing processes; golden mean for tool selection (recognizing AI makes scripts accessible); skeleton-first approach; spec-driven development; general rules for AI-agent
 3. **The Solution:** Documentation preparation in three concentric circles of constraints (basic architectural, system configuration, task-specific), with techniques for creating and managing context (architectural slicing, structured decomposition)
 4. **The Result:** Effective development and evolved developers who direct AI-assisted work with architectural thinking and disciplined workflows
 
