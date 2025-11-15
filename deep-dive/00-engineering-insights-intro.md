@@ -21,7 +21,11 @@ These insights complement practical guides by providing the conceptual foundatio
 
 ## Articles
 
-- [The Golden Mean: Strategic Tool Selection](./01-golden-mean.md) - A deep-dive into choosing the right tool for each task: manual labor, automation by scripts, or AI generation.
+- [The Golden Mean: Strategic Tool Selection](./01-golden-mean/01-golden-mean.md) - A deep-dive into choosing the right tool for each task: manual labor, automation by scripts, or AI generation.
+
+- [The Skeleton-First Approach](./02-skeleton-first-approach/02-skeleton-first-approach.md) - A deep-dive into creating structure before implementation—how skeleton-first reduces cognitive load and improves AI collaboration.
+
+- [The Self-Reinforcing Cycle](./03-self-reinforcing-cycle.md) - How using AI to improve engineering discipline creates better context, leading to better AI output—a compounding advantage.
 
 ## How to Use These Insights
 
